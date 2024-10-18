@@ -3,24 +3,31 @@ import { createTheme } from '@mui/material';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#0f0f0f',
+      main: '#ffffff',
     },
     secondary: {
-      main: '#ffffff',
+      main: '#448E7E',
     },
   },
   typography: {
+    fontFamily: "'Source Sans Pro', sans-serif",
     h1: {
-      fontSize: '3rem',
-      fontWeight: 600,
+      fontFamily: "'Lora', serif",
     },
     h2: {
-      fontSize: '1.75rem',
-      fontWeight: 600,
+      fontFamily: "'Lora', serif",
     },
     h3: {
-      fontSize: '1.5rem',
-      fontWeight: 600,
+      fontFamily: "'Lora', serif",
+    },
+    h4: {
+      fontFamily: "'Lora', serif",
+    },
+    h5: {
+      fontFamily: "'Lora', serif",
+    },
+    h6: {
+      fontFamily: "'Lora', serif",
     },
   },
 });
