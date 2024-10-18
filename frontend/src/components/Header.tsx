@@ -30,7 +30,7 @@ function Header() {
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
-        <Typography variant="h6">Lasto</Typography>
+        <Typography>Lasto</Typography>
 
         <SearchBar placeholder="Find something..." />
 

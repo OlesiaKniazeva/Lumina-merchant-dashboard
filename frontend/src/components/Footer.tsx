@@ -5,15 +5,13 @@ function Footer() {
     <Box
       component="footer"
       sx={{
-        p: 2,
-        backgroundColor: 'primary.main',
+        p: 1,
+        backgroundColor: 'secondary.main',
         color: 'white',
         textAlign: 'center',
       }}
     >
-      <Typography variant="body2">
-        © 2024 My App. All rights reserved.
-      </Typography>
+      <Typography variant="body2">© 2024 Lasto</Typography>
     </Box>
   );
 }

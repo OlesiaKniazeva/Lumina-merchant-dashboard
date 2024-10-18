@@ -46,9 +46,16 @@ function ProductCard({
       <CardContent
         sx={{
           padding: 0,
+          mx: 1,
         }}
       >
-        <Typography gutterBottom variant="subtitle1" component="div" noWrap>
+        <Typography
+          margin={0}
+          gutterBottom
+          variant="subtitle1"
+          component="div"
+          noWrap
+        >
           {title}
         </Typography>
       </CardContent>
@@ -57,8 +64,7 @@ function ProductCard({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          mx: 2,
-          mb: 1,
+          mx: 1,
         }}
       >
         <Typography variant="h5" color="text.primary">
