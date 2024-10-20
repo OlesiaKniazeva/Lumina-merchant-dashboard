@@ -2,57 +2,57 @@
   "advertisements": [
     {
       "id": "1",
-      "name": "Стул старинный",
-      "description": "Очень красивый",
-      "price": 2000,
+      "name": "Antique Chair",
+      "description": "Very beautiful",
+      "price": 24,
       "createdAt": "2022-08-12T20:16:55.351Z",
       "views": 20,
       "likes": 2,
-      "imageUrl": ""
+      "imageUrl": "https://i.etsystatic.com/22922743/r/il/73f147/4845393796/il_fullxfull.4845393796_kodb.jpg"
     },
     {
       "id": "2",
-      "name": "Ведро снега",
-      "description": "Последняя возможность купить по выгодной цене!",
-      "price": 3000,
+      "name": "Snow Bucket",
+      "description": "Last chance to buy at a great price!",
+      "price": 30,
       "createdAt": "2023-08-12T20:16:55.351Z",
       "views": 77832,
       "likes": 45666,
-      "imageUrl": ""
+      "imageUrl": "https://otvet.imgsmail.ru/download/13808068_fa6b134f3466159773929ab840cc65da_800.jpg"
     },
     {
       "id": "3",
-      "name": "Плащ невидимка",
-      "price": 10000000,
+      "name": "Invisibility Cloak",
+      "price": 120000,
       "createdAt": "2024-08-12T20:16:55.351Z",
       "views": 900,
       "likes": 19,
-      "imageUrl": ""
+      "imageUrl": "https://images.prom.ua/380376378_w804_h500_plasch-nevidimka.jpg"
     },
     {
       "id": "4",
-      "name": "Ковер",
-      "description": "Стильный модный, как у бабушки в деревне :)))",
-      "price": 5000,
+      "name": "Carpet",
+      "description": "Stylish and fashionable, just like Grandma's in the village :)))",
+      "price": 60,
       "createdAt": "2024-07-12T20:16:55.351Z",
       "views": 2000000,
       "likes": 2,
-      "imageUrl": ""
+      "imageUrl": "https://ansygallery.ru/files/articles/images/1641.jpg"
     },
     {
       "id": "5",
-      "name": "Носки",
-      "price": 6000,
+      "name": "Socks",
+      "price": 60,
       "createdAt": "2024-06-12T20:16:55.351Z",
       "views": 0,
       "likes": 0,
-      "imageUrl": ""
+      "imageUrl": "https://msk.mongolshop.ru/upload/iblock/d55/hpr7x1x30mx723i7jl4k9ydahq0qmnk3/IMG_2470.jpg"
     },
     {
       "id": "6",
-      "name": "Картонная коробка",
-      "description": "Прочная.",
-      "price": 7000,
+      "name": "Cardboard Box",
+      "description": "Durable.",
+      "price": 84,
       "createdAt": "2024-04-12T20:16:55.351Z",
       "views": 1,
       "likes": 0,
@@ -60,9 +60,9 @@
     },
     {
       "id": "7",
-      "name": "Угловой диван",
-      "description": "Стих для привлечения внимания: дама сдавала в багаж диван, чемодан, саквояж, картину, корзину, картонку и маленькую собачонку. выдали даме на станции четыре зеленых квитанции о том, что получен багаж: диван, чемодан, саквояж, картина, корзина, картонка и маленькая собачонка. вещи везут на перрон. кидают в открытый вагон. готово. уложен багаж: диван, чемодан, саквояж, картина, корзина, картонка и маленькая собачонка. но только раздался звонок, удрал из вагона щенок. хватились на станции дно: потеряно место одно. в испуге считают багаж: диван, чемодан, саквояж, картина, корзина, картонка… — товарищи! где собачонка? вдруг видят: стоит у колес огромный взъерошенный пес. поймали его — и в багаж, туда, где лежал саквояж, картина, корзина, картонка, где прежде была собачонка. приехали в город житомир. носильщик пятнадцатый номер везет на тележке багаж: диван, чемодан, саквояж, картину, корзину, картонку, а сзади ведут собачонку. собака-то как зарычит, а барыня как закричит: — разбойники! воры! уроды! собака — не той породы! швырнула она чемодан, ногой отпихнула диван, картину, корзину, картонку… — отдайте мою собачонку! — позвольте, мамаша! на станции, согласно багажной квитанции, от вас получили багаж: диван, чемодан, саквояж, картину, корзину, картонку и маленькую собачонку. однако за время пути собака могла подрасти!",
-      "price": 999,
+      "name": "Corner Sofa",
+      "description": "A poem to attract attention: a lady checked in a sofa, suitcase, bag, painting, basket, box, and a small dog. They issued the lady four green receipts stating that the luggage has been checked: sofa, suitcase, bag, painting, basket, box, and a small dog. The luggage is being taken to the platform. They throw it into an open carriage. Done. The luggage is packed: sofa, suitcase, bag, painting, basket, box, and a small dog. But then a bell rang, and the puppy ran away from the carriage. They noticed the loss at the station: one place was lost. They counted the luggage in fear: sofa, suitcase, bag, painting, basket, box… — friends! Where is the puppy? Suddenly they see: a huge disheveled dog stands by the wheels. They caught it and put it in the luggage, where the bag, painting, basket, and box used to be. They arrived in the city of Zhytomyr. A porter with the fifteenth number carries the luggage on a cart: sofa, suitcase, bag, painting, basket, box, while a puppy follows behind. The dog growls, and the lady screams: — robbers! thieves! freaks! The dog is not of the right breed! She threw the suitcase, kicked the sofa, painting, basket, box… — give me my puppy! — excuse me, madam! at the station, according to the luggage receipt, we received the luggage from you: sofa, suitcase, bag, painting, basket, box, and a small dog. However, during the journey, the dog might have grown up!",
+      "price": 12,
       "createdAt": "2024-08-12T14:16:55.351Z",
       "views": 20000,
       "likes": 1,
@@ -70,76 +70,196 @@
     },
     {
       "id": "8",
-      "name": "Новый айфон",
-      "price": 100000,
+      "name": "New iPhone",
+      "price": 1200,
       "createdAt": "2024-08-12T12:16:55.351Z",
       "views": 200000,
       "likes": 302,
       "imageUrl": ""
+    },
+    {
+      "id": "9",
+      "name": "Guitar",
+      "description": "Perfect for beginners and professionals.",
+      "price": 180,
+      "createdAt": "2024-08-12T20:16:55.351Z",
+      "views": 10000,
+      "likes": 300,
+      "imageUrl": ""
+    },
+    {
+      "id": "10",
+      "name": "Coffee Table",
+      "description": "Stylish and compact.",
+      "price": 84,
+      "createdAt": "2024-08-11T14:30:00.000Z",
+      "views": 300,
+      "likes": 35,
+      "imageUrl": ""
+    },
+    {
+      "id": "11",
+      "name": "Lamp",
+      "description": "Cozy lighting for your home.",
+      "price": 14,
+      "createdAt": "2024-08-10T11:15:00.000Z",
+      "views": 200,
+      "likes": 18,
+      "imageUrl": ""
+    },
+    {
+      "id": "12",
+      "name": "Backpack",
+      "description": "Convenient and spacious, ideal for travel.",
+      "price": 30,
+      "createdAt": "2024-08-09T16:45:00.000Z",
+      "views": 1500,
+      "likes": 100,
+      "imageUrl": ""
+    },
+    {
+      "id": "13",
+      "name": "Board Game",
+      "description": "A great way to spend time with friends.",
+      "price": 42,
+      "createdAt": "2024-08-08T10:00:00.000Z",
+      "views": 800,
+      "likes": 52,
+      "imageUrl": ""
+    },
+    {
+      "id": "14",
+      "name": "Wireless Headphones",
+      "description": "High-quality sound.",
+      "price": 96,
+      "createdAt": "2024-08-07T20:30:00.000Z",
+      "views": 1200,
+      "likes": 250,
+      "imageUrl": ""
+    },
+    {
+      "id": "15",
+      "name": "Book",
+      "description": "An engaging novel for reading enthusiasts.",
+      "price": 7,
+      "createdAt": "2024-08-06T12:15:00.000Z",
+      "views": 400,
+      "likes": 15,
+      "imageUrl": ""
+    },
+    {
+      "id": "16",
+      "name": "Bicycle",
+      "description": "Suitable for city strolls.",
+      "price": 180,
+      "createdAt": "2024-08-05T09:30:00.000Z",
+      "views": 500,
+      "likes": 80,
+      "imageUrl": ""
+    },
+    {
+      "id": "17",
+      "name": "Refrigerator",
+      "description": "New, economical, and spacious.",
+      "price": 360,
+      "createdAt": "2024-08-04T13:20:00.000Z",
+      "views": 3000,
+      "likes": 240,
+      "imageUrl": ""
+    },
+    {
+      "id": "18",
+      "name": "Laptop",
+      "description": "Powerful and reliable, suitable for work and study.",
+      "price": 720,
+      "createdAt": "2024-08-03T11:10:00.000Z",
+      "views": 4500,
+      "likes": 600,
+      "imageUrl": ""
+    },
+    {
+      "id": "19",
+      "name": "Swimsuit",
+      "description": "Trendy and comfortable for beach relaxation.",
+      "price": 18,
+      "createdAt": "2024-08-02T15:25:00.000Z",
+      "views": 100,
+      "likes": 12,
+      "imageUrl": ""
+    },
+    {
+      "id": "20",
+      "name": "Toothbrush",
+      "description": "For effective dental hygiene.",
+      "price": 42,
+      "createdAt": "2024-08-01T08:00:00.000Z",
+      "views": 200,
+      "likes": 18,
+      "imageUrl": ""
     }
   ],
   "orders": [
-    {
-      "id": "1",
-      "status": 0,
-      "createdAt": "2024-08-12T20:20:55.351Z",
-      "finishedAt": "",
-      "total": 314000,
-      "deliveryWay": "mail",
-      "items": [
-        {
-          "id": "8",
-          "name": "Новый айфон",
-          "price": 100000,
-          "createdAt": "2024-08-12T12:16:55.351Z",
-          "views": 200000,
-          "likes": 302,
-          "imageUrl": "",
-          "count": 3
-        },
-        {
-          "id": "6",
-          "name": "Картонная коробка",
-          "description": "Почная.",
-          "price": 7000,
-          "createdAt": "2024-04-12T20:16:55.351Z",
-          "views": 1,
-          "likes": 0,
-          "imageUrl": "",
-          "count": 2
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "status": 4,
-      "createdAt": "2024-08-12T20:20:55.351Z",
-      "finishedAt": "2024-08-12T20:25:55.351Z",
-      "total": 33000,
-      "deliveryWay": "sdek",
-      "items": [
-        {
-          "id": "2",
-          "name": "Ведро снега",
-          "description": "Последняя возможность купить по выгодной цене!",
-          "price": 3000,
-          "createdAt": "2023-08-12T20:16:55.351Z",
-          "views": 77832,
-          "likes": 45666,
-          "imageUrl": "",
-          "count": 10
-        },
-        {
-          "id": "5",
-          "name": "Носки",
-          "price": 6000,
-          "createdAt": "2024-06-12T20:16:55.351Z",
-          "views": 0,
-          "likes": 0,
-          "imageUrl": "",
-          "count": 5
-        }
-      ]
-    }
-  ]
+      {
+        "id": "1",
+        "status": 0,
+        "createdAt": "2024-08-12T20:20:55.351Z",
+        "finishedAt": "",
+        "total": 3140,
+        "deliveryWay": "mail",
+        "items": [
+          {
+            "id": "8",
+            "name": "New iPhone",
+            "price": 1200,
+            "createdAt": "2024-08-12T12:16:55.351Z",
+            "views": 200000,
+            "likes": 302,
+            "imageUrl": "",
+            "count": 3
+          },
+          {
+            "id": "6",
+            "name": "Cardboard Box",
+            "description": "Durable.",
+            "price": 84,
+            "createdAt": "2024-04-12T20:16:55.351Z",
+            "views": 1,
+            "likes": 0,
+            "imageUrl": "",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "status": 4,
+        "createdAt": "2024-08-12T20:20:55.351Z",
+        "finishedAt": "2024-08-12T20:25:55.351Z",
+        "total": 330,
+        "deliveryWay": "sdek",
+        "items": [
+          {
+            "id": "2",
+            "name": "Snow Bucket",
+            "description": "Last chance to buy at a great price!",
+            "price": 30,
+            "createdAt": "2023-08-12T20:16:55.351Z",
+            "views": 77832,
+            "likes": 45666,
+            "imageUrl": "",
+            "count": 10
+          },
+          {
+            "id": "5",
+            "name": "Socks",
+            "price": 60,
+            "createdAt": "2024-06-12T20:16:55.351Z",
+            "views": 0,
+            "likes": 0,
+            "imageUrl": "",
+            "count": 5
+          }
+        ]
+      }
+    ]
 }
