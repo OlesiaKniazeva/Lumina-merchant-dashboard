@@ -1,20 +1,29 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import HomePage from '../pages/HomePage';
 import ErrorPage from '../pages/ErrorPage';
+import AdvertisementDetailsPage from '../pages/AdvertisementDetailsPage';
+import OrdersPage from '../pages/OrdersPage';
 
-const AppRouter = createBrowserRouter(
-  createRoutesFromElements(
-    <Route
-      path="/"
-      element={<HomePage />}
-      errorElement={<ErrorPage />}
-    ></Route>,
-  ),
-);
+const AppRouter = createBrowserRouter([
+  {
+    path: '/',
+    index: true,
+    element: <Navigate to="/advertisements" replace />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/advertisements',
+    element: <HomePage />,
+  },
+  {
+    path: '/advertisements/:id',
+    element: <AdvertisementDetailsPage />,
+  },
+  {
+    path: '/orders',
+    element: <OrdersPage />,
+  },
+]);
 
 export default AppRouter;
