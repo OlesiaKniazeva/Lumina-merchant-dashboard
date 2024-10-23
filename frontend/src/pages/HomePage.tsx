@@ -1,16 +1,49 @@
-import ProductCard from '../components/ProductCard';
 import Layout from '../layouts/layout';
+import ProductCardList from '../components/ProductCardList';
+import useAdvertisements from '../hooks/useAdvertisements';
+import { styled, Box } from '@mui/material';
+import PaginationComponent from '../components/Pagination';
+import ErrorComponent from '../components/ErrorComponent';
+import AdvertisementControls from '../components/AdvertisementsControls';
+import usePagination from '../hooks/usePagination';
 
 function HomePage() {
+  const { page, adsPerPage, setPage, handleAdsPerPageChange } = usePagination();
+
+  const { advertisements, totalPages, isLoading, error } = useAdvertisements({
+    currentPage: page,
+    perPage: adsPerPage,
+  });
+
+  const PaginationContainer = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+  });
+
   return (
     <Layout>
-      <ProductCard
-        imageUrl="https://basket-03.wbbasket.ru/vol289/part28911/28911663/images/big/1.webp"
-        title="Product 1 hjghjghjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
-        originalPrice={100}
-        viewCount={100}
-        likeCount={100}
+      <AdvertisementControls
+        adsPerPage={adsPerPage}
+        setAdsPerPage={handleAdsPerPageChange}
       />
+
+      {isLoading && <div>Loading...</div>}
+
+      {error && <ErrorComponent />}
+
+      {!isLoading && !error && (
+        <>
+          <ProductCardList advertisements={advertisements} />
+          <PaginationContainer>
+            <PaginationComponent
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+            />
+          </PaginationContainer>
+        </>
+      )}
     </Layout>
   );
 }
