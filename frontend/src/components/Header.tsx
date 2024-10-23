@@ -6,7 +6,7 @@ import { styled } from '@mui/system';
 import useModal from '../hooks/useModal';
 import AdModal from './AdModal';
 
-const StyledLink = styled(Link)<{ active?: boolean }>(({ theme, active }) => ({
+const StyledLink = styled(Link)<{ active?: string }>(({ theme, active }) => ({
   marginRight: '20px',
   textDecoration: 'none',
   color: active ? theme.palette.secondary.main : theme.palette.text.primary,
@@ -58,11 +58,11 @@ function Header() {
         >
           <StyledLink
             to="/advertisements"
-            active={isAdvertisementsPage ? true : undefined}
+            active={isAdvertisementsPage ? 'true' : undefined}
           >
             Advertisements
           </StyledLink>
-          <StyledLink to="/orders" active={isOrdersPage ? true : undefined}>
+          <StyledLink to="/orders" active={isOrdersPage ? 'true' : undefined}>
             Orders
           </StyledLink>
         </Box>
