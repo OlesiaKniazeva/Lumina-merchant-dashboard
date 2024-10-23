@@ -20,7 +20,8 @@ function ProductCard({
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 350,
+        minWidth: 200,
         backgroundColor: 'white',
         borderRadius: 2,
         boxShadow: 0,
@@ -31,6 +32,7 @@ function ProductCard({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        fontSize: '1rem',
       }}
     >
       <CardMedia
@@ -52,7 +54,7 @@ function ProductCard({
         <Typography
           margin={0}
           gutterBottom
-          variant="subtitle1"
+          variant="subtitle2"
           component="div"
           noWrap
         >
@@ -65,23 +67,24 @@ function ProductCard({
           justifyContent: 'space-between',
           alignItems: 'center',
           mx: 1,
+          mb: 0.5,
         }}
       >
-        <Typography variant="h5" color="text.primary">
+        <Typography variant="body2" color="text.primary">
           ${originalPrice}
         </Typography>
 
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center" mr={2}>
             <VisibilityOutlinedIcon fontSize="small" />
-            <Typography variant="body2" color="text.secondary" ml={0.5}>
+            <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
               {viewCount}
             </Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
             <FavoriteIcon sx={{ color: 'red' }} fontSize="small" />
-            <Typography variant="body2" color="text.secondary" ml={0.5}>
+            <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
               {likeCount}
             </Typography>
           </Box>
