@@ -2,11 +2,11 @@ import api from './axiosConfig';
 import { Advertisement } from '../types';
 import axios from 'axios';
 
-export const getAdvertisements = async (
+export async function getAdvertisements(
   page: number = 1,
   perPage: number = 10,
   signal?: AbortSignal,
-) => {
+) {
   try {
     const response = await api.get(
       `/advertisements?_page=${page}&_per_page=${perPage}`,
@@ -25,9 +25,9 @@ export const getAdvertisements = async (
       throw error;
     }
   }
-};
+}
 
-export const getAdvertisementById = async (id: string) => {
+export async function getAdvertisementById(id: string) {
   try {
     const response = await api.get(`/advertisements/${id}`);
     return response.data;
@@ -35,9 +35,9 @@ export const getAdvertisementById = async (id: string) => {
     console.error(`Error fetching advertisement with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const createAdvertisement = async (advertisement: Advertisement) => {
+export async function createAdvertisement(advertisement: Advertisement) {
   try {
     const response = await api.post('/advertisements', advertisement);
     return response.data;
@@ -45,12 +45,12 @@ export const createAdvertisement = async (advertisement: Advertisement) => {
     console.error('Error creating advertisement:', error);
     throw error;
   }
-};
+}
 
-export const updateAdvertisement = async (
+export async function updateAdvertisement(
   id: string,
   advertisement: Advertisement,
-) => {
+) {
   try {
     const response = await api.put(`/advertisements/${id}`, advertisement);
     return response.data;
@@ -58,12 +58,12 @@ export const updateAdvertisement = async (
     console.error(`Error updating advertisement with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const patchAdvertisement = async (
+export async function patchAdvertisement(
   id: string,
   advertisement: Advertisement,
-) => {
+) {
   try {
     const response = await api.patch(`/advertisements/${id}`, advertisement);
     return response.data;
@@ -71,9 +71,9 @@ export const patchAdvertisement = async (
     console.error(`Error patching advertisement with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const deleteAdvertisement = async (id: string) => {
+export async function deleteAdvertisement(id: string) {
   try {
     await api.delete(`/advertisements/${id}`);
     // console.log(`Advertisement with id ${id} deleted`);
@@ -81,4 +81,4 @@ export const deleteAdvertisement = async (id: string) => {
     console.error(`Error deleting advertisement with id ${id}:`, error);
     throw error;
   }
-};
+}

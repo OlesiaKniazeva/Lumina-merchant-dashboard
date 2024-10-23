@@ -1,7 +1,7 @@
 import api from './axiosConfig';
 import { Order } from '../types';
 
-export const getOrders = async () => {
+export async function getOrders() {
   try {
     const response = await api.get('/orders');
     return response.data;
@@ -9,9 +9,9 @@ export const getOrders = async () => {
     console.error('Error fetching orders:', error);
     throw error;
   }
-};
+}
 
-export const getOrderById = async (id: string) => {
+export async function getOrderById(id: string) {
   try {
     const response = await api.get(`/orders/${id}`);
     return response.data;
@@ -19,9 +19,9 @@ export const getOrderById = async (id: string) => {
     console.error(`Error fetching order with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const createOrder = async (order: Order) => {
+export async function createOrder(order: Order) {
   try {
     const response = await api.post('/orders', order);
     return response.data;
@@ -29,9 +29,9 @@ export const createOrder = async (order: Order) => {
     console.error('Error creating order:', error);
     throw error;
   }
-};
+}
 
-export const updateOrder = async (id: string, order: Order) => {
+export async function updateOrder(id: string, order: Order) {
   try {
     const response = await api.put(`/orders/${id}`, order);
     return response.data;
@@ -39,9 +39,9 @@ export const updateOrder = async (id: string, order: Order) => {
     console.error(`Error updating order with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const patchOrder = async (id: string, order: Order) => {
+export async function patchOrder(id: string, order: Order) {
   try {
     const response = await api.patch(`/orders/${id}`, order);
     return response.data;
@@ -49,9 +49,9 @@ export const patchOrder = async (id: string, order: Order) => {
     console.error(`Error patching order with id ${id}:`, error);
     throw error;
   }
-};
+}
 
-export const deleteOrder = async (id: string) => {
+export async function deleteOrder(id: string) {
   try {
     await api.delete(`/orders/${id}`);
     // console.log(`Order with id ${id} deleted`);
@@ -59,4 +59,4 @@ export const deleteOrder = async (id: string) => {
     console.error(`Error deleting order with id ${id}:`, error);
     throw error;
   }
-};
+}
