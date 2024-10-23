@@ -1,22 +1,8 @@
-import {
-  AppBar,
-  Button,
-  Toolbar,
-  Typography,
-  InputBase,
-  Box,
-} from '@mui/material';
+import { AppBar, Button, Toolbar, Typography, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { styled } from '@mui/system';
-
-const SearchBar = styled(InputBase)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  padding: '5px 10px',
-  borderRadius: theme.shape.borderRadius,
-  border: '2px solid',
-  borderColor: theme.palette.secondary.main,
-  width: '400px',
-}));
+import useModal from '../hooks/useModal';
+import AdModal from './AdModal';
 
 const Link = styled('a')({
   marginRight: '20px',
@@ -27,6 +13,7 @@ const Link = styled('a')({
 });
 
 function Header() {
+  const { isOpen, openModal, closeModal } = useModal();
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
@@ -47,10 +34,16 @@ function Header() {
           <Link href="/orders">Orders</Link>
         </Box>
 
-        <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={openModal}
+        >
           New Advertisement
         </Button>
       </Toolbar>
+      <AdModal open={isOpen} handleClose={closeModal} />
     </AppBar>
   );
 }
