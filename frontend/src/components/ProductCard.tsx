@@ -1,7 +1,7 @@
 import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PlaceholderImage from '../assets/no-image.svg';
+import PlaceholderImage from '../assets/placeholderImage.svg';
 
 interface ProductCardProps {
   name: string;
