@@ -1,4 +1,4 @@
-type Advertisment = {
+type Advertisement = {
     /* Уникальный идентификатор. */
     id: string;
     /* Название. */
@@ -29,7 +29,7 @@ const OrderStatus = {
 } as const;
 
 
-type OrderItem = Advertisment & { count: number; };
+type OrderItem = Advertisement & { count: number; };
 
 type Order = {
     /* Уникальный идентификатор. */
