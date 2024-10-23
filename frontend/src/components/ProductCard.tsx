@@ -1,21 +1,22 @@
 import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import PlaceholderImage from '../assets/no-image.svg';
 
 interface ProductCardProps {
-  imageUrl: string;
-  title: string;
-  originalPrice: number;
-  viewCount: number;
-  likeCount: number;
+  name: string;
+  price: number;
+  views: number;
+  likes: number;
+  imageUrl: string | undefined;
 }
 
 function ProductCard({
-  imageUrl,
-  title,
-  originalPrice,
-  viewCount,
-  likeCount,
+  name,
+  price,
+  views,
+  likes,
+  imageUrl = '',
 }: ProductCardProps) {
   return (
     <Card
@@ -37,8 +38,8 @@ function ProductCard({
     >
       <CardMedia
         component="img"
-        image={imageUrl}
-        alt={title}
+        alt={name}
+        image={imageUrl || PlaceholderImage}
         sx={{
           width: '100%',
           aspectRatio: '1 / 1',
@@ -58,7 +59,7 @@ function ProductCard({
           component="div"
           noWrap
         >
-          {title}
+          {name}
         </Typography>
       </CardContent>
       <Box
@@ -71,21 +72,21 @@ function ProductCard({
         }}
       >
         <Typography variant="body2" color="text.primary">
-          ${originalPrice}
+          ${price}
         </Typography>
 
         <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center" mr={2}>
             <VisibilityOutlinedIcon fontSize="small" />
             <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
-              {viewCount}
+              {views}
             </Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
             <FavoriteIcon sx={{ color: 'red' }} fontSize="small" />
             <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
-              {likeCount}
+              {likes}
             </Typography>
           </Box>
         </Box>
