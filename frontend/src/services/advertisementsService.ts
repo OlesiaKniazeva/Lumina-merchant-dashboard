@@ -5,17 +5,25 @@ import axios from 'axios';
 export async function getAdvertisements(
   page: number = 1,
   perPage: number = 10,
+  searchTerm?: string,
   signal?: AbortSignal,
 ) {
   try {
-    const response = await api.get(
-      `/advertisements?_page=${page}&_per_page=${perPage}`,
-      { signal },
-    );
-    // console.log("All data in response::::", response.data);
+    let url = `/advertisements?_page=${page}&_limit=${perPage}`;
+
+    if (searchTerm) {
+      url += `&name_like=${encodeURIComponent(searchTerm)}`;
+    }
+
+    const response = await api.get(url, { signal });
+
+    const pages =
+      response.headers['x-total-count'] / perPage > 0
+        ? Math.ceil(response.headers['x-total-count'] / perPage)
+        : 1;
     return {
-      pages: response.data.pages,
-      data: response.data.data,
+      pages: pages,
+      data: response.data,
     };
   } catch (error) {
     if (axios.isCancel(error)) {
