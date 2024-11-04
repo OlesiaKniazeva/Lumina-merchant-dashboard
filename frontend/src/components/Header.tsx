@@ -34,7 +34,7 @@ function Header() {
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
         <Typography
-          component={isAdvertisementsPage ? 'div' : Link} // Disable if on advertisements page
+          component={isAdvertisementsPage ? 'div' : Link}
           to={isAdvertisementsPage ? undefined : '/advertisements'}
           variant="h4"
           sx={{
