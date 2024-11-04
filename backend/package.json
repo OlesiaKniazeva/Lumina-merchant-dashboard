@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "server": "json-server --watch db.json"
+    "server": "json-server --host 0.0.0.0 --watch db.json"
   },
   "engines": {
     "node": ">=20.0.0"

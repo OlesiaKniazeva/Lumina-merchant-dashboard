@@ -5,30 +5,18 @@ services:
       dockerfile: Dockerfile
     container_name: frontend_c
     ports:
-      - '5173:5173'
+      - "5173:5173"
     volumes:
       - ./frontend:/app
     depends_on:
       - backend
-    environment:
-      - HTTP_PROXY=http://0.0.0.0:20171
-      - HTTPS_PROXY=http://0.0.0.0:20171
-      - NO_PROXY=localhost,127.0.0.1,frontend_c,backend_c
 
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend_c
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
       - ./backend:/app
-    environment:
-      - HTTP_PROXY=http://0.0.0.0:20171
-      - HTTPS_PROXY=http://0.0.0.0:20171
-      - NO_PROXY=localhost,127.0.0.1,frontend_c,backend_c
-
-# networks:
-#   app-network:
-#     driver: bridge
