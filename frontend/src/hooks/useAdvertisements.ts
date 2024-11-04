@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { getAdvertisements } from '../services/advertisementsService';
 import { Advertisement } from '../types';
+import { useLocation } from 'react-router-dom';
 
 interface UseAdvertisementsProps {
   currentPage: number;
@@ -12,6 +13,10 @@ function useAdvertisements({ currentPage, perPage }: UseAdvertisementsProps) {
   const [error, setError] = useState<Error | undefined>();
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchTerm = queryParams.get('q') || '';
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -28,6 +33,7 @@ function useAdvertisements({ currentPage, perPage }: UseAdvertisementsProps) {
         const response = await getAdvertisements(
           currentPage,
           perPage,
+          searchTerm,
           abortControllerRef.current.signal,
         );
 
@@ -51,7 +57,7 @@ function useAdvertisements({ currentPage, perPage }: UseAdvertisementsProps) {
     };
 
     fetchAdvertisements();
-  }, [currentPage, perPage]);
+  }, [currentPage, perPage, searchTerm]);
 
   return { advertisements, totalPages, isLoading, error };
 }

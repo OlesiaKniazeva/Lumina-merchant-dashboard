@@ -2,8 +2,10 @@ import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PlaceholderImage from '../assets/placeholderImage.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   views: number;
@@ -12,19 +14,27 @@ interface ProductCardProps {
 }
 
 function ProductCard({
+  id,
   name,
   price,
   views,
   likes,
   imageUrl = '',
 }: ProductCardProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/advertisements/${id}`);
+  };
+
   return (
     <Card
+      onClick={handleClick}
       sx={{
         maxWidth: 350,
         minWidth: 200,
         backgroundColor: 'white',
-        borderRadius: 2,
+        borderRadius: 0,
         boxShadow: 0,
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {

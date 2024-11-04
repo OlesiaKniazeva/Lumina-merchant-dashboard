@@ -7,6 +7,8 @@ interface ProductCardListProps {
 }
 
 function ProductCardList({ advertisements }: ProductCardListProps) {
+  if (!advertisements) return <div>No advertisements found</div>;
+
   return (
     <Box
       sx={{
@@ -27,6 +29,7 @@ function ProductCardList({ advertisements }: ProductCardListProps) {
       {advertisements.map((advertisement) => (
         <ProductCard
           key={advertisement.id}
+          id={advertisement.id}
           name={advertisement.name}
           price={advertisement.price}
           views={advertisement.views}
