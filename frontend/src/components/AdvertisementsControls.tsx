@@ -1,24 +1,23 @@
-import { Box, InputBase, styled } from '@mui/material';
+import { Box } from '@mui/material';
 import AdvertisementCountSelector from '../components/AdvertisementsCountSelector';
+import SearchBar from './SearchBar';
+import { useNavigate } from 'react-router-dom';
 
 interface AdvertisementControlsProps {
   adsPerPage: number;
   setAdsPerPage: (perPage: number) => void;
 }
 
-const SearchBar = styled(InputBase)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  padding: '5px 10px',
-  borderRadius: theme.shape.borderRadius,
-  border: '2px solid',
-  borderColor: theme.palette.secondary.main,
-  width: '400px',
-}));
-
-const AdvertisementControls = ({
+function AdvertisementControls({
   adsPerPage,
   setAdsPerPage,
-}: AdvertisementControlsProps) => {
+}: AdvertisementControlsProps) {
+  const navigate = useNavigate();
+
+  const handleSearch = (query: string) => {
+    navigate(`?q=${encodeURIComponent(query)}&perPage=${adsPerPage}&page=1`);
+  };
+
   return (
     <Box
       sx={{
@@ -29,7 +28,7 @@ const AdvertisementControls = ({
       }}
     >
       <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-        <SearchBar placeholder="Find something..." />
+        <SearchBar onSearch={handleSearch} />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <AdvertisementCountSelector
@@ -39,6 +38,6 @@ const AdvertisementControls = ({
       </Box>
     </Box>
   );
-};
+}
 
 export default AdvertisementControls;
