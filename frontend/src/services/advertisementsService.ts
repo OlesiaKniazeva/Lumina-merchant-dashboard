@@ -35,13 +35,18 @@ export async function getAdvertisements(
   }
 }
 
-export async function getAdvertisementById(id: string) {
+export async function getAdvertisementById(id: string, signal?: AbortSignal) {
+  const url = `/advertisements/${id}`;
   try {
-    const response = await api.get(`/advertisements/${id}`);
+    const response = await api.get(url, { signal });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching advertisement with id ${id}:`, error);
-    throw error;
+    if (axios.isCancel(error)) {
+      // console.log('Request canceled', error.message);
+    } else {
+      console.error(`Error fetching advertisement with id ${id}:`, error);
+      throw error;
+    }
   }
 }
 
