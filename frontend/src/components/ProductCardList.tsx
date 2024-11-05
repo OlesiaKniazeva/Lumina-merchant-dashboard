@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import ProductCard from './ProductCard';
 import { Advertisement } from '../types';
 
@@ -7,37 +7,36 @@ interface ProductCardListProps {
 }
 
 function ProductCardList({ advertisements }: ProductCardListProps) {
-  if (!advertisements) return <div>No advertisements found</div>;
-
   return (
-    <Box
+    <Grid
+      container
+      spacing={{ xs: 2, sm: 2, md: 3 }}
       sx={{
-        display: 'grid',
-        gridTemplateColumns: {
-          xs: 'repeat(2, 1fr)',
-          sm: 'repeat(3, 1fr)',
-          lg: 'repeat(4, 1fr)',
-        },
-        gap: {
-          xs: 1,
-          sm: 2,
-          lg: 3,
-        },
-        rowGap: 4,
+        width: '100%',
+        mx: 'auto',
       }}
     >
-      {advertisements.map((advertisement) => (
-        <ProductCard
-          key={advertisement.id}
-          id={advertisement.id}
-          name={advertisement.name}
-          price={advertisement.price}
-          views={advertisement.views}
-          likes={advertisement.likes}
-          imageUrl={advertisement.imageUrl}
-        />
+      {advertisements.map((ad) => (
+        <Grid
+          key={ad.id}
+          size={{
+            xs: 12,
+            sm: 6,
+            md: 4,
+            lg: 3,
+          }}
+        >
+          <ProductCard
+            id={ad.id}
+            name={ad.name}
+            price={ad.price}
+            views={ad.views}
+            likes={ad.likes}
+            imageUrl={ad.imageUrl}
+          />
+        </Grid>
       ))}
-    </Box>
+    </Grid>
   );
 }
 

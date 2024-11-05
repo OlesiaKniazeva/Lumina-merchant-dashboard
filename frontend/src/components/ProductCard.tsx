@@ -1,4 +1,4 @@
-import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { Card, CardMedia, Typography, Box, useTheme } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PlaceholderImage from '../assets/placeholderImage.svg';
@@ -22,6 +22,7 @@ function ProductCard({
   imageUrl = '',
 }: ProductCardProps) {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleClick = () => {
     navigate(`/advertisements/${id}`);
@@ -31,19 +32,22 @@ function ProductCard({
     <Card
       onClick={handleClick}
       sx={{
-        maxWidth: 350,
-        minWidth: 200,
+        maxWidth: { xs: 350, md: 'none' },
+        minWidth: { xs: 200, md: 'none' },
+        width: '100%',
         backgroundColor: 'white',
         borderRadius: 0,
-        boxShadow: 0,
-        transition: 'box-shadow 0.3s ease-in-out',
+        boxShadow: 'none',
+        transition: 'all 0.2s ease-in-out',
         '&:hover': {
-          boxShadow: 3,
+          transform: 'translateY(-4px)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
         },
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        fontSize: '1rem',
+        cursor: 'pointer',
+        overflow: 'hidden',
+        height: '100%',
       }}
     >
       <CardMedia
@@ -54,50 +58,85 @@ function ProductCard({
           width: '100%',
           aspectRatio: '1 / 1',
           objectFit: 'cover',
+          borderRadius: 0,
         }}
       />
-      <CardContent
-        sx={{
-          padding: 0,
-          mx: 1,
-        }}
-      >
+      <Box sx={{ p: 2 }}>
         <Typography
-          margin={0}
-          gutterBottom
-          variant="subtitle2"
-          component="div"
-          noWrap
+          variant="h6"
+          sx={{
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            color: theme.palette.custom.warmTones.header,
+            mb: 1,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            fontFamily: theme.typography.h6.fontFamily,
+            letterSpacing: '-0.25px',
+          }}
         >
           {name}
         </Typography>
-      </CardContent>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mx: 1,
-          mb: 0.5,
-        }}
-      >
-        <Typography variant="body2" color="text.primary">
-          ${price}
-        </Typography>
 
-        <Box display="flex" alignItems="center">
-          <Box display="flex" alignItems="center" mr={2}>
-            <VisibilityOutlinedIcon fontSize="small" />
-            <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
-              {views}
-            </Typography>
-          </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: '1.25rem',
+              color: theme.palette.custom.price,
+              fontFamily: theme.typography.h6.fontFamily,
+            }}
+          >
+            ${price}
+          </Typography>
 
-          <Box display="flex" alignItems="center">
-            <FavoriteIcon sx={{ color: 'red' }} fontSize="small" />
-            <Typography variant="subtitle2" color="text.secondary" ml={0.5}>
-              {likes}
-            </Typography>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Box display="flex" alignItems="center">
+              <VisibilityOutlinedIcon
+                sx={{
+                  fontSize: 18,
+                  color: theme.palette.custom.warmTones.body,
+                }}
+              />
+              <Typography
+                sx={{
+                  ml: 0.5,
+                  fontSize: '0.875rem',
+                  color: theme.palette.custom.warmTones.body,
+                  fontWeight: 500,
+                  fontFamily: theme.typography.fontFamily,
+                }}
+              >
+                {views}
+              </Typography>
+            </Box>
+
+            <Box display="flex" alignItems="center">
+              <FavoriteIcon
+                sx={{
+                  fontSize: 18,
+                  color: theme.palette.custom.heart,
+                }}
+              />
+              <Typography
+                sx={{
+                  ml: 0.5,
+                  fontSize: '0.875rem',
+                  color: theme.palette.custom.warmTones.body,
+                  fontWeight: 500,
+                  fontFamily: theme.typography.fontFamily,
+                }}
+              >
+                {likes}
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
