@@ -62,26 +62,13 @@ export async function createAdvertisement(advertisement: Advertisement) {
 
 export async function updateAdvertisement(
   id: string,
-  advertisement: Advertisement,
-) {
-  try {
-    const response = await api.put(`/advertisements/${id}`, advertisement);
-    return response.data;
-  } catch (error) {
-    console.error(`Error updating advertisement with id ${id}:`, error);
-    throw error;
-  }
-}
-
-export async function patchAdvertisement(
-  id: string,
-  advertisement: Advertisement,
+  advertisement: Partial<Advertisement>,
 ) {
   try {
     const response = await api.patch(`/advertisements/${id}`, advertisement);
     return response.data;
   } catch (error) {
-    console.error(`Error patching advertisement with id ${id}:`, error);
+    console.error(`Error updating advertisement with id ${id}:`, error);
     throw error;
   }
 }
