@@ -95,3 +95,17 @@ export async function deleteAdvertisement(id: string) {
     throw error;
   }
 }
+
+export async function uploadImage(formData: FormData) {
+  try {
+    const response = await api.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data.url; // Adjust according to your API response
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+}
