@@ -25,6 +25,35 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    pageTitle: React.CSSProperties;
+    logo: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    pageTitle?: React.CSSProperties;
+    logo?: React.CSSProperties;
+  }
+
+  interface TypographyVariants {
+    h1: React.CSSProperties;
+    h2: React.CSSProperties;
+    h3: React.CSSProperties;
+    h4: React.CSSProperties;
+    h5: React.CSSProperties;
+    h6: React.CSSProperties;
+  }
+}
+
+// Add this to properly type Typography component props
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    pageTitle: true;
+    logo: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -48,42 +77,48 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "'Outfit', sans-serif",
+    fontFamily: "'Inter', sans-serif",
     h1: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
     },
     h2: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
     },
     h3: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
     },
     h4: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
     },
     h5: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
     },
     h6: {
       fontFamily: "'Fraunces', serif",
       fontWeight: 500,
-      color: '#475569',
       letterSpacing: '-0.25px',
+      color: '#524B5D',
+    },
+    logo: {
+      fontFamily: "'Gilda Display', serif",
+      fontWeight: 400,
+      letterSpacing: '1.5px',
+      color: '#6B4E71',
     },
     pageTitle: {
       fontFamily: "'Fraunces', serif",
@@ -164,15 +199,5 @@ const theme = createTheme({
     },
   },
 });
-
-declare module '@mui/material/styles' {
-  interface TypographyVariants {
-    pageTitle: React.CSSProperties;
-  }
-
-  interface TypographyVariantsOptions {
-    pageTitle?: React.CSSProperties;
-  }
-}
 
 export default theme;
