@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { getAdvertisementById } from '../services/advertisementsService';
+import {
+  getAdvertisementById,
+  updateAdvertisement,
+} from '../services/advertisementsService';
 import { Advertisement } from '../types';
 import { useParams } from 'react-router-dom';
 
@@ -54,6 +57,17 @@ function useAdvertisement() {
     fetchAdvertisementDetails();
   }, [id]);
 
-  return { advertisement, isLoading, error };
+  const handleUpdate = async (updatedData: Partial<Advertisement>) => {
+    if (!advertisement?.id) return;
+
+    try {
+      const updated = await updateAdvertisement(advertisement.id, updatedData);
+      setAdvertisement(updated);
+    } catch (err) {
+      setError(err as Error);
+    }
+  };
+
+  return { advertisement, isLoading, error, handleUpdate };
 }
 export default useAdvertisement;
