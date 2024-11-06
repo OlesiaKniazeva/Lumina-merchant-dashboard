@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import AdvertisementCountSelector from '../components/AdvertisementsCountSelector';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router-dom';
@@ -19,24 +19,22 @@ function AdvertisementControls({
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        mb: 2,
-      }}
+    <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      spacing={{ xs: 3, sm: 3 }}
+      alignItems={{ xs: 'stretch', sm: 'center' }}
+      sx={{ width: '100%' }}
     >
-      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ flex: 1 }}>
         <SearchBar onSearch={handleSearch} />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ minWidth: 120 }}>
         <AdvertisementCountSelector
           count={adsPerPage}
           setCount={setAdsPerPage}
         />
       </Box>
-    </Box>
+    </Stack>
   );
 }
 
