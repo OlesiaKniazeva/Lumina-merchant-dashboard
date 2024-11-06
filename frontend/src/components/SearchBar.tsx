@@ -15,19 +15,31 @@ const SearchBarContainer = styled(Box)(({ theme }) => ({
 const StyledInput = styled(InputBase)(({ theme }) => ({
   flexGrow: 1,
   padding: '5px 10px',
-  color: theme.palette.text.primary,
+  color: theme.palette.custom.warmTones.body,
+  fontFamily: theme.typography.fontFamily,
+  '&::placeholder': {
+    color: theme.palette.text.secondary,
+    opacity: 1,
+  },
 }));
 
-const ClearButton = styled(IconButton)({
+const ClearButton = styled(IconButton)(({ theme }) => ({
   padding: '5px',
   marginRight: '10px',
-});
+  color: theme.palette.text.secondary,
+  '&:hover': {
+    color: theme.palette.custom.warmTones.body,
+  },
+}));
 
-const StyledButton = styled(Button)(() => ({
+const StyledButton = styled(Button)(({ theme }) => ({
   borderRadius: 0,
   boxShadow: 'none',
   padding: '10px 16px',
   margin: 0,
+  fontFamily: theme.typography.fontFamily,
+  fontWeight: 500,
+  textTransform: 'none',
 }));
 
 function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
@@ -41,6 +53,13 @@ function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
 
   const handleClear = () => {
     setQuery('');
+    onSearch('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -49,6 +68,7 @@ function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for ads..."
+        onKeyDown={handleKeyDown}
       />
       {query && (
         <ClearButton onClick={handleClear}>

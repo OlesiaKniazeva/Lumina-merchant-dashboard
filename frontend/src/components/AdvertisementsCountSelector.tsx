@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 interface AdvertisementCountSelectorProps {
   count: number;
@@ -9,6 +10,8 @@ function AdvertisementCountSelector({
   count,
   setCount,
 }: AdvertisementCountSelectorProps) {
+  const theme = useTheme();
+
   return (
     <FormControl
       variant="outlined"
@@ -17,11 +20,11 @@ function AdvertisementCountSelector({
         '& .MuiOutlinedInput-root': {
           backgroundColor: 'white',
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'secondary.main',
+            borderColor: theme.palette.secondary.main,
           },
         },
         '& .MuiInputLabel-root.Mui-focused': {
-          color: 'secondary.main',
+          color: theme.palette.secondary.main,
         },
       }}
     >
@@ -29,7 +32,8 @@ function AdvertisementCountSelector({
         id="items-per-page-label"
         sx={{
           fontWeight: 500,
-          color: 'text.secondary',
+          color: theme.palette.text.secondary,
+          fontFamily: theme.typography.fontFamily,
         }}
       >
         Items per page
@@ -42,6 +46,7 @@ function AdvertisementCountSelector({
         sx={{
           '& .MuiSelect-select': {
             py: 1.5,
+            fontFamily: theme.typography.fontFamily,
           },
         }}
       >

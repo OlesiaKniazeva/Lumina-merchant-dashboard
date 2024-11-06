@@ -1,17 +1,27 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 
 function Footer() {
+  const theme = useTheme();
+
   return (
     <Box
       component="footer"
       sx={{
-        p: 1,
-        backgroundColor: 'secondary.main',
+        p: 1.5,
+        backgroundColor: theme.palette.secondary.main,
         color: 'white',
         textAlign: 'center',
       }}
     >
-      <Typography variant="body2">© 2024 Lasto</Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          fontFamily: theme.typography.fontFamily,
+          fontWeight: 500,
+        }}
+      >
+        © 2024 Lumina
+      </Typography>
     </Box>
   );
 }

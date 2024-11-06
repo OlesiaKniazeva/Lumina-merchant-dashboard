@@ -45,8 +45,6 @@ function ProductCard({
         },
         display: 'flex',
         flexDirection: 'column',
-        cursor: 'pointer',
-        overflow: 'hidden',
         height: '100%',
       }}
     >
@@ -61,82 +59,90 @@ function ProductCard({
           borderRadius: 0,
         }}
       />
-      <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          position: 'relative',
+        }}
+      >
         <Typography
           variant="h6"
           sx={{
             fontSize: '1.1rem',
             fontWeight: 500,
             color: theme.palette.custom.warmTones.header,
+            fontFamily: theme.typography.h6.fontFamily,
             mb: 1,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            fontFamily: theme.typography.h6.fontFamily,
-            letterSpacing: '-0.25px',
           }}
         >
           {name}
         </Typography>
 
-        <Box
+        <Typography
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            fontWeight: 700,
+            fontSize: '1.25rem',
+            color: theme.palette.custom.price,
+            fontFamily: theme.typography.h6.fontFamily,
           }}
         >
-          <Typography
-            sx={{
-              fontWeight: 700,
-              fontSize: '1.25rem',
-              color: theme.palette.custom.price,
-              fontFamily: theme.typography.h6.fontFamily,
-            }}
-          >
-            ${price}
-          </Typography>
+          ${price}
+        </Typography>
 
-          <Box display="flex" alignItems="center" gap={2}>
-            <Box display="flex" alignItems="center">
-              <VisibilityOutlinedIcon
-                sx={{
-                  fontSize: 18,
-                  color: theme.palette.custom.warmTones.body,
-                }}
-              />
-              <Typography
-                sx={{
-                  ml: 0.5,
-                  fontSize: '0.875rem',
-                  color: theme.palette.custom.warmTones.body,
-                  fontWeight: 500,
-                  fontFamily: theme.typography.fontFamily,
-                }}
-              >
-                {views}
-              </Typography>
-            </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          sx={{
+            position: 'absolute',
+            bottom: 16,
+            right: 16,
+          }}
+        >
+          <Box display="flex" alignItems="center">
+            <VisibilityOutlinedIcon
+              sx={{
+                fontSize: 18,
+                color: theme.palette.custom.warmTones.body,
+              }}
+            />
+            <Typography
+              sx={{
+                ml: 0.5,
+                fontSize: '0.875rem',
+                color: theme.palette.custom.warmTones.body,
+                fontWeight: 500,
+                fontFamily: theme.typography.fontFamily,
+              }}
+            >
+              {views}
+            </Typography>
+          </Box>
 
-            <Box display="flex" alignItems="center">
-              <FavoriteIcon
-                sx={{
-                  fontSize: 18,
-                  color: theme.palette.custom.heart,
-                }}
-              />
-              <Typography
-                sx={{
-                  ml: 0.5,
-                  fontSize: '0.875rem',
-                  color: theme.palette.custom.warmTones.body,
-                  fontWeight: 500,
-                  fontFamily: theme.typography.fontFamily,
-                }}
-              >
-                {likes}
-              </Typography>
-            </Box>
+          <Box display="flex" alignItems="center">
+            <FavoriteIcon
+              sx={{
+                fontSize: 18,
+                color: theme.palette.custom.heart,
+              }}
+            />
+            <Typography
+              sx={{
+                ml: 0.5,
+                fontSize: '0.875rem',
+                color: theme.palette.custom.warmTones.body,
+                fontWeight: 500,
+                fontFamily: theme.typography.fontFamily,
+              }}
+            >
+              {likes}
+            </Typography>
           </Box>
         </Box>
       </Box>

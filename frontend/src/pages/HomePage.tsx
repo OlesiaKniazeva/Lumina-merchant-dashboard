@@ -41,18 +41,16 @@ function HomePage() {
         </Box>
 
         {isLoading && (
-          <Box sx={{ textAlign: 'center', py: 4 }}>
-            <Typography
-              sx={{
-                fontSize: '1.1rem',
-                fontWeight: 500,
-                color: theme.palette.custom.warmTones.body,
-                fontFamily: theme.typography.fontFamily,
-              }}
-            >
-              Loading...
-            </Typography>
-          </Box>
+          <Typography
+            sx={{
+              fontSize: '1.1rem',
+              fontWeight: 500,
+              color: theme.palette.custom.warmTones.body,
+              fontFamily: theme.typography.fontFamily,
+            }}
+          >
+            Loading...
+          </Typography>
         )}
 
         {error && <ErrorComponent />}
