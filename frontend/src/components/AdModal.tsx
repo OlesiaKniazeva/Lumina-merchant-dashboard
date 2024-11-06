@@ -25,6 +25,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
   const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = () => {
+    // TODO: Implement advertisement creation
     handleClose();
   };
 
@@ -36,21 +37,26 @@ function AdModal({ open, handleClose }: AdModalProps) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Новое Объявление
+        <Typography
+          id="modal-modal-title"
+          variant="h5"
+          component="h2"
+          sx={{ mb: 2 }}
+        >
+          New Advertisement
         </Typography>
 
         <TextField
           fullWidth
           margin="normal"
-          label="Название"
+          label="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <TextField
           fullWidth
           margin="normal"
-          label="Описание"
+          label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -58,24 +64,24 @@ function AdModal({ open, handleClose }: AdModalProps) {
           fullWidth
           margin="normal"
           type="number"
-          label="Стоимость"
+          label="Price"
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
         />
         <TextField
           fullWidth
           margin="normal"
-          label="URL Картинки"
+          label="Image URL"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
 
         <Box mt={2} display="flex" justifyContent="flex-end">
           <Button onClick={handleClose} sx={{ mr: 2 }}>
-            Отмена
+            Cancel
           </Button>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Создать
+            Create
           </Button>
         </Box>
       </Box>
