@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid2';
-import ProductCard from './ProductCard';
-import { Advertisement } from '../types';
+import ProductCard from '@components/ProductCard';
+import { Advertisement } from '@/types';
 
 interface ProductCardListProps {
   advertisements: Advertisement[];

@@ -1,6 +1,5 @@
-import useAdvertisement from '../hooks/useAdvertisement';
-import Layout from '../layouts/layout';
-import ErrorComponent from '../components/ErrorComponent';
+import { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Card,
@@ -11,15 +10,18 @@ import {
   Modal,
   TextField,
   CircularProgress,
+  IconButton,
 } from '@mui/material';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import PlaceholderImage from '../assets/placeholderImage.svg';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
-import LinkIcon from '@mui/icons-material/Link';
-import { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import {
+  VisibilityOutlined as VisibilityOutlinedIcon,
+  Favorite as FavoriteIcon,
+  Edit as EditIcon,
+  Link as LinkIcon,
+} from '@mui/icons-material';
+import useAdvertisement from '@hooks/useAdvertisement';
+import Layout from '@layouts/layout';
+import ErrorComponent from '@components/ErrorComponent';
+import PlaceholderImage from '@/assets/placeholderImage.svg';
 
 function AdvertisementDetailsPage() {
   const { advertisement, isLoading, error, handleUpdate } = useAdvertisement();

@@ -1,7 +1,7 @@
 import { Card, CardMedia, Typography, Box, useTheme } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PlaceholderImage from '../assets/placeholderImage.svg';
+import PlaceholderImage from '@/assets/placeholderImage.svg';
 import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {

@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import AdvertisementCountSelector from '../components/AdvertisementsCountSelector';
-import SearchBar from './SearchBar';
+import { useTheme } from '@emotion/react';
+import AdvertisementCountSelector from '@components/AdvertisementsCountSelector';
+import SearchBar from '@components/SearchBar';
 import { useNavigate } from 'react-router-dom';
 
 interface AdvertisementControlsProps {

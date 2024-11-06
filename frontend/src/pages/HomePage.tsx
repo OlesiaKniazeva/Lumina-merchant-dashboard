@@ -1,12 +1,12 @@
-import Layout from '../layouts/layout';
-import ProductCardList from '../components/ProductCardList';
-import useAdvertisements from '../hooks/useAdvertisements';
 import { Box, Container, Typography } from '@mui/material';
-import PaginationComponent from '../components/Pagination';
-import ErrorComponent from '../components/ErrorComponent';
-import AdvertisementControls from '../components/AdvertisementsControls';
-import usePagination from '../hooks/usePagination';
 import { useTheme } from '@mui/material/styles';
+import Layout from '@layouts/layout';
+import ProductCardList from '@components/ProductCardList';
+import PaginationComponent from '@components/Pagination';
+import ErrorComponent from '@components/ErrorComponent';
+import AdvertisementControls from '@components/AdvertisementsControls';
+import useAdvertisements from '@hooks/useAdvertisements';
+import usePagination from '@hooks/usePagination';
 
 function HomePage() {
   const theme = useTheme();

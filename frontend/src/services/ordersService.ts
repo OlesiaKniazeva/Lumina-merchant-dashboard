@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import { Order } from '../types';
+import { Order } from '@/types';
 
 export async function getOrders() {
   try {

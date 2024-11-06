@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import {
   getAdvertisementById,
   updateAdvertisement,
-} from '../services/advertisementsService';
-import { Advertisement } from '../types';
+} from '@services/advertisementsService';
+import { Advertisement } from '@/types';
 import { useParams } from 'react-router-dom';
 
 function useAdvertisement() {

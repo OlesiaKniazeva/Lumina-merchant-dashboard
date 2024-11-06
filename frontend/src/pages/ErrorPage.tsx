@@ -1,5 +1,5 @@
-import { Box, Typography, Button, useTheme } from '@mui/material';
-import Layout from '../layouts/layout';
+import { Box, Typography, Button } from '@mui/material';
+import Layout from '@layouts/layout';
 import { useNavigate } from 'react-router-dom';
 
 function ErrorPage() {

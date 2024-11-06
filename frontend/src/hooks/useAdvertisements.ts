@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { getAdvertisements } from '../services/advertisementsService';
-import { Advertisement } from '../types';
+import { getAdvertisements } from '@services/advertisementsService';
+import { Advertisement } from '@/types';
 import { useLocation } from 'react-router-dom';
 
 interface UseAdvertisementsProps {

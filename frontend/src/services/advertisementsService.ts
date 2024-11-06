@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import { Advertisement } from '../types';
+import { Advertisement } from '@/types';
 import axios from 'axios';
 
 export async function getAdvertisements(
