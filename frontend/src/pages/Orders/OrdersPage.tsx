@@ -1,42 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Layout from '@layouts/layout';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Chip,
-  Button,
-  Stack,
-} from '@mui/material';
+import { Box, Typography, Select, MenuItem, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { getOrders } from '@/services/ordersService';
-import type { Order } from '@/types';
-import { getStatusLabel, getStatusColor } from './orderHelpers';
+import OrderCard from './components/OrderCard';
+import { useOrders } from './hooks/useOrders';
 
 function OrdersPage() {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async () => {
-    try {
-      const data = await getOrders();
-      setOrders(data);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const { orders, totalPages, loading, error } = useOrders({ page, perPage });
 
   if (loading) {
     return (
       <Layout>
         <Typography>Loading orders...</Typography>
+      </Layout>
+    );
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <Typography color="error">
+          Error loading orders: {error.message}
+        </Typography>
       </Layout>
     );
   }
@@ -49,76 +36,50 @@ function OrdersPage() {
         </Typography>
       </Box>
 
+      <Box sx={{ mb: 2 }}>
+        <Select
+          size="small"
+          value={perPage}
+          onChange={(e) => {
+            setPerPage(Number(e.target.value));
+            setPage(1);
+          }}
+          sx={{ minWidth: 120 }}
+        >
+          <MenuItem value={5}>5 per page</MenuItem>
+          <MenuItem value={10}>10 per page</MenuItem>
+          <MenuItem value={20}>20 per page</MenuItem>
+        </Select>
+      </Box>
+
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {orders.map((order) => (
-          <Grid key={order.id} size={{ xs: 12 }}>
-            <Card>
-              <CardContent>
-                <Stack spacing={2}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Typography variant="h6" color="text.primary">
-                      Order #{order.id}
-                    </Typography>
-                    <Chip
-                      label={getStatusLabel(order.status)}
-                      color={getStatusColor(order.status)}
-                      size="small"
-                    />
-                  </Box>
-
-                  <Grid container spacing={2}>
-                    <Grid size={{ xs: 12, sm: 6 }}>
-                      <Stack spacing={1}>
-                        <Typography color="text.secondary">
-                          Delivery: {order.deliveryWay}
-                        </Typography>
-                        <Typography color="text.secondary">
-                          Created:{' '}
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </Typography>
-                        {order.finishedAt && (
-                          <Typography color="text.secondary">
-                            Finished:{' '}
-                            {new Date(order.finishedAt).toLocaleDateString()}
-                          </Typography>
-                        )}
-                      </Stack>
-                    </Grid>
-                    <Grid size={{ xs: 12, sm: 6 }}>
-                      <Stack spacing={1}>
-                        <Typography
-                          color="custom.price"
-                          sx={{ fontWeight: 600 }}
-                        >
-                          Total: ${order.total}
-                        </Typography>
-                        <Typography color="text.secondary">
-                          Items: {order.items.length}
-                        </Typography>
-                        <Box>
-                          <Button
-                            variant="outlined"
-                            color="secondary"
-                            size="small"
-                          >
-                            View Items
-                          </Button>
-                        </Box>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </Stack>
-              </CardContent>
-            </Card>
+          <Grid
+            key={order.id}
+            size={{
+              xs: 12,
+            }}
+          >
+            <OrderCard
+              order={order}
+              onComplete={() => {
+                // TODO: Implement order completion
+              }}
+            />
           </Grid>
         ))}
       </Grid>
+
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(_: React.ChangeEvent<unknown>, newPage: number) =>
+            setPage(newPage)
+          }
+          color="primary"
+        />
+      </Box>
     </Layout>
   );
 }

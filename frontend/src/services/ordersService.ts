@@ -1,11 +1,30 @@
 import api from './axiosConfig';
 import { Order } from '@/types';
+import axios from 'axios';
 
-export async function getOrders() {
+export async function getOrders(
+  page: number = 1,
+  perPage: number = 10,
+  signal?: AbortSignal,
+) {
   try {
-    const response = await api.get('/orders');
-    return response.data;
+    const response = await api.get<Order[]>(
+      `/orders?_page=${page}&_limit=${perPage}`,
+      { signal },
+    );
+
+    const pages = response.headers['x-total-count']
+      ? Math.ceil(Number(response.headers['x-total-count']) / perPage)
+      : 1;
+
+    return {
+      data: response.data,
+      pages,
+    };
   } catch (error) {
+    if (axios.isCancel(error)) {
+      return;
+    }
     console.error('Error fetching orders:', error);
     throw error;
   }
