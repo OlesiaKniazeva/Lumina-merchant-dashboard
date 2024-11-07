@@ -6,25 +6,27 @@ import {
   CardHeader,
   CardMedia,
   Typography,
-  Button,
-  Modal,
-  TextField,
-  CircularProgress,
   IconButton,
+  Button,
 } from '@mui/material';
 import {
   VisibilityOutlined as VisibilityOutlinedIcon,
   Favorite as FavoriteIcon,
   Edit as EditIcon,
-  Link as LinkIcon,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
 } from '@mui/icons-material';
 import useAdvertisement from '@hooks/useAdvertisement';
 import Layout from '@layouts/layout';
 import ErrorComponent from '@components/ErrorComponent';
 import { DEFAULT_PLACEHOLDER } from '@/constants/common';
+import ImageUpdateModal from './components/ImageUpdateModal';
 
-function AdvertisementDetailsPage() {
+function AdvertisementPage() {
   const { advertisement, isLoading, error, handleUpdate } = useAdvertisement();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
   const theme = useTheme();
 
@@ -35,20 +37,10 @@ function AdvertisementDetailsPage() {
   const views = advertisement?.views;
   const likes = advertisement?.likes;
 
-  const [imageModalOpen, setImageModalOpen] = useState(false);
-  const [newImageUrl, setNewImageUrl] = useState('');
-  const [isImageLoading, setIsImageLoading] = useState(false);
-  const [urlError, setUrlError] = useState('');
-
-  const handleImageUrlUpdate = async () => {
+  const handleImageUpdate = async (newImageUrl: string) => {
+    setIsImageLoading(true);
     try {
-      setIsImageLoading(true);
       await handleUpdate({ imageUrl: newImageUrl });
-      setImageModalOpen(false);
-      setNewImageUrl('');
-    } catch (error) {
-      console.error('Failed to update image URL:', error);
-      setUrlError('Failed to update image. Please try again.');
     } finally {
       setIsImageLoading(false);
     }
@@ -76,6 +68,8 @@ function AdvertisementDetailsPage() {
               position: 'relative',
               width: { xs: '100%', md: '50%' },
               mb: { xs: 3, md: 0 },
+              minHeight: { xs: 300, sm: 400, md: 500 },
+              flexShrink: 0,
             }}
           >
             <CardMedia
@@ -133,7 +127,6 @@ function AdvertisementDetailsPage() {
                     color: theme.palette.custom.warmTones.body,
                     fontSize: '14px',
                     fontWeight: 500,
-                    fontFamily: theme.typography.fontFamily,
                   }}
                 >
                   {views}
@@ -153,7 +146,6 @@ function AdvertisementDetailsPage() {
                     color: theme.palette.custom.warmTones.body,
                     fontSize: '14px',
                     fontWeight: 500,
-                    fontFamily: theme.typography.fontFamily,
                   }}
                 >
                   {likes}
@@ -169,7 +161,6 @@ function AdvertisementDetailsPage() {
               paddingLeft: { xs: 0, md: 4 },
               display: 'flex',
               flexDirection: 'column',
-              height: '100%',
             }}
           >
             <Box>
@@ -183,7 +174,6 @@ function AdvertisementDetailsPage() {
                     fontWeight: 600,
                     lineHeight: 1.2,
                     color: theme.palette.custom.warmTones.header,
-                    fontFamily: theme.typography.h4.fontFamily,
                   },
                 }}
               />
@@ -193,123 +183,76 @@ function AdvertisementDetailsPage() {
                   fontSize: { xs: '24px', sm: '28px', md: '32px' },
                   marginBottom: 3,
                   color: theme.palette.custom.price,
-                  fontFamily: theme.typography.h4.fontFamily,
                 }}
               >
                 ${price}
               </Typography>
             </Box>
 
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: '16px',
-                  sm: '16px',
-                  md: '18px',
-                },
-                lineHeight: 1.6,
-                color: theme.palette.custom.warmTones.body,
-                letterSpacing: '0.2px',
-                mb: 1,
-                fontFamily: theme.typography.fontFamily,
-              }}
-            >
-              {description}
-            </Typography>
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: '16px',
+                    sm: '16px',
+                    md: '18px',
+                  },
+                  lineHeight: 1.6,
+                  color: theme.palette.custom.warmTones.body,
+                  letterSpacing: '0.2px',
+                  mb: 1,
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: isDescriptionExpanded ? 'unset' : 3,
+                  WebkitBoxOrient: 'vertical',
+                }}
+              >
+                {description}
+              </Typography>
+              {description && description.length > 600 && (
+                <Button
+                  onClick={() =>
+                    setIsDescriptionExpanded(!isDescriptionExpanded)
+                  }
+                  sx={{
+                    textTransform: 'none',
+                    color: theme.palette.custom.warmTones.body,
+                    padding: '4px 8px',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      background: 'rgba(0, 0, 0, 0.04)',
+                    },
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                  }}
+                >
+                  {isDescriptionExpanded ? (
+                    <>
+                      Show less
+                      <KeyboardArrowUp fontSize="small" />
+                    </>
+                  ) : (
+                    <>
+                      Show more
+                      <KeyboardArrowDown fontSize="small" />
+                    </>
+                  )}
+                </Button>
+              )}
+            </Box>
           </Box>
         </Card>
       )}
 
-      <Modal
+      <ImageUpdateModal
         open={imageModalOpen}
-        onClose={() => {
-          setImageModalOpen(false);
-          setNewImageUrl('');
-          setUrlError('');
-        }}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            p: 4,
-            borderRadius: 2,
-            maxWidth: 500,
-            width: '90%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 3,
-          }}
-        >
-          <Typography variant="h5" textAlign="center">
-            Update Image
-          </Typography>
-
-          <Box sx={{ width: '100%' }}>
-            <TextField
-              fullWidth
-              placeholder="Paste image URL here"
-              value={newImageUrl}
-              onChange={(e) => {
-                setNewImageUrl(e.target.value);
-                setUrlError('');
-              }}
-              error={!!urlError}
-              helperText={urlError}
-              sx={{ mb: 2 }}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <LinkIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                  ),
-                },
-              }}
-            />
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ display: 'block', mb: 2 }}
-            >
-              Please provide a direct link to an image (ends with .jpg, .png,
-              .gif, etc.)
-            </Typography>
-            <Button
-              variant="contained"
-              onClick={handleImageUrlUpdate}
-              disabled={!newImageUrl.trim() || isImageLoading}
-              fullWidth
-            >
-              {isImageLoading ? (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <CircularProgress size={20} color="inherit" />
-                  <span>Updating...</span>
-                </Box>
-              ) : (
-                'Update Image'
-              )}
-            </Button>
-          </Box>
-
-          <Button
-            onClick={() => {
-              setImageModalOpen(false);
-              setNewImageUrl('');
-              setUrlError('');
-            }}
-            color="inherit"
-            disabled={isImageLoading}
-          >
-            Cancel
-          </Button>
-        </Box>
-      </Modal>
+        onClose={() => setImageModalOpen(false)}
+        onUpdate={handleImageUpdate}
+        isLoading={isImageLoading}
+      />
     </Layout>
   );
 }
 
-export default AdvertisementDetailsPage;
+export default AdvertisementPage;
