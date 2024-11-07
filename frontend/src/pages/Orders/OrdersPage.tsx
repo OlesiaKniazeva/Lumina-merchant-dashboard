@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import Layout from '@layouts/layout';
-import { Box, Typography, Select, MenuItem, Pagination } from '@mui/material';
+import { Box, Typography, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import OrderCard from './components/OrderCard';
+import OrdersControls from './components/OrdersControls';
 import { useOrders } from './hooks/useOrders';
 
 function OrdersPage() {
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-  const { orders, totalPages, loading, error } = useOrders({ page, perPage });
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  const { orders, totalPages, loading, error } = useOrders({
+    page,
+    perPage: itemsPerPage,
+  });
 
   if (loading) {
     return (
@@ -36,21 +43,17 @@ function OrdersPage() {
         </Typography>
       </Box>
 
-      <Box sx={{ mb: 2 }}>
-        <Select
-          size="small"
-          value={perPage}
-          onChange={(e) => {
-            setPerPage(Number(e.target.value));
-            setPage(1);
-          }}
-          sx={{ minWidth: 120 }}
-        >
-          <MenuItem value={5}>5 per page</MenuItem>
-          <MenuItem value={10}>10 per page</MenuItem>
-          <MenuItem value={20}>20 per page</MenuItem>
-        </Select>
-      </Box>
+      <OrdersControls
+        statusFilter={statusFilter}
+        setStatusFilter={setStatusFilter}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+        itemsPerPage={itemsPerPage}
+        onItemsPerPageChange={(value) => {
+          setItemsPerPage(value);
+          setPage(1);
+        }}
+      />
 
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {orders.map((order) => (
