@@ -31,12 +31,16 @@ function PaginationComponent({
           '& .MuiPaginationItem-root': {
             fontFamily: theme.typography.fontFamily,
             color: theme.palette.custom.warmTones.body,
+            borderColor: theme.palette.divider,
+            '&:hover': {
+              backgroundColor: 'rgba(107, 78, 113, 0.04)',
+            },
           },
-          '& .Mui-selected': {
-            backgroundColor: theme.palette.secondary.main,
+          '& .MuiPaginationItem-root.Mui-selected': {
+            backgroundColor: '#806386',
             color: 'white',
             '&:hover': {
-              backgroundColor: theme.palette.secondary.dark,
+              backgroundColor: '#755A7B',
             },
           },
         }}

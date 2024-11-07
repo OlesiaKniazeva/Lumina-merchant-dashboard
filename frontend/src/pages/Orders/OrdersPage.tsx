@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Layout from '@layouts/layout';
-import { Box, Typography, Pagination } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import OrderCard from './components/OrderCard';
 import OrdersControls from './components/OrdersControls';
 import { useOrders } from './hooks/useOrders';
+import PaginationComponent from '@components/Pagination';
 
 function OrdersPage() {
   const [page, setPage] = useState(1);
@@ -74,13 +75,10 @@ function OrdersPage() {
       </Grid>
 
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-        <Pagination
-          count={totalPages}
+        <PaginationComponent
           page={page}
-          onChange={(_: React.ChangeEvent<unknown>, newPage: number) =>
-            setPage(newPage)
-          }
-          color="primary"
+          totalPages={totalPages}
+          setPage={setPage}
         />
       </Box>
     </Layout>
