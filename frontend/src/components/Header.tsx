@@ -213,13 +213,31 @@ function Header() {
           minHeight: { xs: '64px', sm: '72px', md: '80px' },
         }}
       >
-        <Logo
-          component={isAdvertisementsPage ? 'div' : Link}
-          to={isAdvertisementsPage ? undefined : '/advertisements'}
-          variant="h5"
-        >
-          Lumina
-        </Logo>
+        <Box>
+          <Logo
+            component={isAdvertisementsPage ? 'div' : Link}
+            to={isAdvertisementsPage ? undefined : '/advertisements'}
+            variant="h5"
+          >
+            Lumina
+          </Logo>
+          <Typography
+            sx={{
+              color: theme.palette.text.secondary,
+              fontSize: '0.66rem',
+              fontWeight: 500,
+              letterSpacing: '0.06em',
+              fontFamily: "'Inter', sans-serif",
+              textTransform: 'uppercase',
+              mt: 0.5,
+              ml: 0.25,
+              opacity: 0.8,
+              display: { xs: 'none', sm: 'block' },
+            }}
+          >
+            Merchant Dashboard
+          </Typography>
+        </Box>
 
         <DesktopNav
           isAdvertisementsPage={isAdvertisementsPage}
