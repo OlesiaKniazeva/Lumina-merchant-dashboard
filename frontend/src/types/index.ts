@@ -27,7 +27,7 @@ export const OrderStatus = {
   Refund: 6,
 } as const;
 
-type OrderItem = Advertisement & { count: number };
+export type OrderItem = Advertisement & { count: number };
 
 export type Order = {
   /* Уникальный идентификатор. */
@@ -45,12 +45,3 @@ export type Order = {
   /* Сумма заказа */
   total: number;
 };
-
-// type Image = {
-//   /* Уникальный идентификатор. */
-//   id: number;
-//   /* Ссылка. */
-//   url: string;
-//   /* Название. */
-//   name: string;
-// };

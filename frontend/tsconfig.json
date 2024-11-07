@@ -18,15 +18,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
-      "@utils/*": ["src/utils/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@routes/*": ["src/routes/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
