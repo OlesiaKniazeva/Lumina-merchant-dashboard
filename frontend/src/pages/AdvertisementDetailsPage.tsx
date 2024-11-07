@@ -21,7 +21,7 @@ import {
 import useAdvertisement from '@hooks/useAdvertisement';
 import Layout from '@layouts/layout';
 import ErrorComponent from '@components/ErrorComponent';
-import PlaceholderImage from '@/assets/placeholderImage.svg';
+import { DEFAULT_PLACEHOLDER } from '@/constants/common';
 
 function AdvertisementDetailsPage() {
   const { advertisement, isLoading, error, handleUpdate } = useAdvertisement();
@@ -80,7 +80,7 @@ function AdvertisementDetailsPage() {
           >
             <CardMedia
               component="img"
-              image={imageUrl || PlaceholderImage}
+              image={imageUrl || DEFAULT_PLACEHOLDER}
               alt={name}
               sx={{
                 width: '100%',

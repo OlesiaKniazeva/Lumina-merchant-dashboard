@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import type { OrderItem } from '@/types';
-
-const PLACEHOLDER_IMAGE = 'https://placehold.co/80x80?text=No+Image';
+import { DEFAULT_PLACEHOLDER } from '@/constants/common';
 
 interface OrderItemsProps {
   items: OrderItem[];
@@ -33,7 +32,7 @@ const OrderItems = ({ items }: OrderItemsProps) => {
           <Box sx={{ display: 'flex', gap: 2, flex: 1 }}>
             <Box
               component="img"
-              src={item.imageUrl || PLACEHOLDER_IMAGE}
+              src={item.imageUrl || DEFAULT_PLACEHOLDER}
               alt={item.name}
               sx={{
                 width: 80,

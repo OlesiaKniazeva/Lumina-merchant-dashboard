@@ -1,8 +1,8 @@
 import { Card, CardMedia, Typography, Box, useTheme } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PlaceholderImage from '@/assets/placeholderImage.svg';
 import { useNavigate } from 'react-router-dom';
+import { DEFAULT_PLACEHOLDER } from '@/constants/common';
 
 interface ProductCardProps {
   id: string;
@@ -51,7 +51,7 @@ function ProductCard({
       <CardMedia
         component="img"
         alt={name}
-        image={imageUrl || PlaceholderImage}
+        image={imageUrl || DEFAULT_PLACEHOLDER}
         sx={{
           width: '100%',
           aspectRatio: '1 / 1',
