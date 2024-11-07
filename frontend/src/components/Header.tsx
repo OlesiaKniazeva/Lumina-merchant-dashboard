@@ -9,7 +9,7 @@ import {
   MenuItem,
   useTheme,
 } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/system';
@@ -44,7 +44,8 @@ const Logo = styled(Typography, {
   component?: ElementType;
   to?: string;
   theme?: Theme;
-}>(({ theme }) => {
+  isHome?: boolean;
+}>(({ theme, isHome }) => {
   if (!theme) throw new Error('Theme is required');
 
   return {
@@ -56,8 +57,9 @@ const Logo = styled(Typography, {
     lineHeight: 1,
     fontFamily: "'Gilda Display', serif",
     transition: 'opacity 0.2s ease',
+    cursor: isHome ? 'default' : 'pointer',
     '&:hover': {
-      opacity: 0.85,
+      opacity: isHome ? 1 : 0.85,
     },
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
@@ -179,6 +181,7 @@ interface NavProps {
 
 function Header() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -186,6 +189,10 @@ function Header() {
 
   const isAdvertisementsPage = location.pathname === '/advertisements';
   const isOrdersPage = location.pathname === '/orders';
+
+  const handleLogoClick = () => {
+    navigate('/advertisements');
+  };
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -215,8 +222,9 @@ function Header() {
       >
         <Box>
           <Logo
-            component={isAdvertisementsPage ? 'div' : Link}
-            to={isAdvertisementsPage ? undefined : '/advertisements'}
+            component="div"
+            onClick={isAdvertisementsPage ? undefined : handleLogoClick}
+            isHome={isAdvertisementsPage}
             variant="h5"
           >
             Lumina
