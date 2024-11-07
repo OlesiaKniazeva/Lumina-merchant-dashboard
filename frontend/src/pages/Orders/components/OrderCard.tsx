@@ -7,12 +7,14 @@ import {
   Box,
   Stack,
   Chip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
+  Collapse,
+  Divider,
 } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import type { Order } from '@/types';
 import { getStatusLabel, getStatusColor } from '../orderHelpers';
+import OrderItems from './OrderItems';
 
 interface OrderCardProps {
   order: Order;
@@ -20,7 +22,7 @@ interface OrderCardProps {
 }
 
 const OrderCard = ({ order }: OrderCardProps) => {
-  const [showItems, setShowItems] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <Card>
@@ -61,30 +63,26 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <Typography color="text.secondary">
               Items: {order.items.length}
             </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                size="small"
+                onClick={() => setExpanded(!expanded)}
+                endIcon={
+                  expanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+                }
+              >
+                {expanded ? 'Hide Items' : 'View Items'}
+              </Button>
+            </Box>
           </Stack>
 
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="small"
-            onClick={() => setShowItems(true)}
-          >
-            View Items
-          </Button>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Divider sx={{ my: 2 }} />
+            <OrderItems items={order.items} />
+          </Collapse>
         </Stack>
-
-        <Dialog
-          open={showItems}
-          onClose={() => setShowItems(false)}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle>Order Items</DialogTitle>
-          <DialogContent>
-            {/* TODO: Add OrderItems component */}
-            <Typography>Items list will go here</Typography>
-          </DialogContent>
-        </Dialog>
       </CardContent>
     </Card>
   );
