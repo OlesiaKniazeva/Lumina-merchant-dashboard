@@ -50,9 +50,11 @@ export async function getAdvertisementById(id: string, signal?: AbortSignal) {
   }
 }
 
-export async function createAdvertisement(advertisement: Advertisement) {
+export type CreateAdvertisementDTO = Omit<Advertisement, 'id'>;
+
+export async function createAdvertisement(data: CreateAdvertisementDTO) {
   try {
-    const response = await api.post('/advertisements', advertisement);
+    const response = await api.post('/advertisements', data);
     return response.data;
   } catch (error) {
     console.error('Error creating advertisement:', error);
@@ -90,7 +92,7 @@ export async function uploadImage(formData: FormData) {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return response.data.url; // Adjust according to your API response
+    return response.data.url;
   } catch (error) {
     console.error('Error uploading image:', error);
     throw error;
