@@ -22,7 +22,8 @@ import { DEFAULT_PLACEHOLDER } from '@/constants/common';
 import ImageUpdateModal from './components/ImageUpdateModal';
 
 function AdvertisementPage() {
-  const { advertisement, isLoading, error, handleUpdate } = useAdvertisement();
+  const { advertisement, isLoading, error, handleUpdate, refetch } =
+    useAdvertisement();
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
@@ -40,6 +41,8 @@ function AdvertisementPage() {
     setIsImageLoading(true);
     try {
       await handleUpdate({ imageUrl: newImageUrl });
+      await refetch();
+      setImageModalOpen(false);
     } finally {
       setIsImageLoading(false);
     }
@@ -54,21 +57,32 @@ function AdvertisementPage() {
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            padding: 2,
-            maxWidth: 1000,
+            padding: { xs: 2, md: 4 },
+            maxWidth: { xs: '100%', sm: '600px', md: '1000px' },
             margin: '24px auto',
             boxShadow: 'none',
             position: 'relative',
             bgcolor: '#ffffff',
+            gap: { md: 4 },
           }}
         >
           <Box
             sx={{
               position: 'relative',
-              width: { xs: '100%', md: '50%' },
+              width: {
+                xs: '100%',
+                sm: '600px',
+                md: '500px',
+              },
+              maxWidth: '100%',
               mb: { xs: 3, md: 0 },
-              minHeight: { xs: 300, sm: 400, md: 500 },
+              paddingTop: {
+                xs: '100%',
+                sm: '600px',
+                md: '500px',
+              },
               flexShrink: 0,
+              mx: 'auto',
             }}
           >
             <CardMedia
@@ -76,9 +90,12 @@ function AdvertisementPage() {
               image={imageUrl || DEFAULT_PLACEHOLDER}
               alt={name}
               sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
                 width: '100%',
+                height: '100%',
                 objectFit: 'cover',
-                height: { xs: 300, sm: 400, md: 500 },
                 borderRadius: 1,
               }}
             />

@@ -66,7 +66,23 @@ function useAdvertisement() {
     }
   };
 
-  return { advertisement, isLoading, error, handleUpdate };
+  const refetch = async () => {
+    if (!id) return;
+
+    setIsLoading(true);
+    try {
+      const response = await getAdvertisementById(id);
+      if (response) {
+        setAdvertisement(response);
+      }
+    } catch (error) {
+      console.error('Error refetching advertisement:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { advertisement, isLoading, error, handleUpdate, refetch };
 }
 
 export default useAdvertisement;
