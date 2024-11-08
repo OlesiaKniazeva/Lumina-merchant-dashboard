@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Card,
-  CardHeader,
   CardMedia,
   Typography,
   IconButton,
@@ -163,25 +162,15 @@ function AdvertisementPage() {
               flexDirection: 'column',
             }}
           >
-            <Box>
-              <CardHeader
-                title={name}
-                sx={{
-                  padding: 0,
-                  marginBottom: 2,
-                  '& .MuiTypography-root': {
-                    fontSize: { xs: '24px', sm: '28px', md: '32px' },
-                    fontWeight: 600,
-                    lineHeight: 1.2,
-                    color: theme.palette.custom.warmTones.header,
-                  },
-                }}
-              />
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="pageTitle" component="h1">
+                {name}
+              </Typography>
               <Typography
                 sx={{
                   fontWeight: 700,
                   fontSize: { xs: '24px', sm: '28px', md: '32px' },
-                  marginBottom: 3,
+                  marginTop: 2,
                   color: theme.palette.custom.price,
                 }}
               >

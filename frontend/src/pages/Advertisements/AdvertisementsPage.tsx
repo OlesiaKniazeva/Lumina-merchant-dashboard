@@ -19,21 +19,14 @@ function AdvertisementsPage() {
 
   return (
     <Layout>
-      <Container>
-        <Box sx={{ mb: { xs: 3, sm: 4 } }}>
-          <Typography
-            variant="h4"
-            sx={{
-              color: theme.palette.custom.warmTones.header,
-              fontWeight: 500,
-              mb: { xs: 2, sm: 3 },
-              fontSize: { xs: '1.75rem', sm: '2rem' },
-              fontFamily: theme.typography.h4.fontFamily,
-              letterSpacing: '-0.25px',
-            }}
-          >
-            Your Advertisements
+      <Container maxWidth="xl" sx={{ py: 3, px: { xs: 2, sm: 3, md: 4 } }}>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="pageTitle" component="h1">
+            Advertisements
           </Typography>
+        </Box>
+
+        <Box sx={{ mb: { xs: 3, sm: 4 } }}>
           <AdvertisementsControls
             adsPerPage={adsPerPage}
             setAdsPerPage={handleAdsPerPageChange}

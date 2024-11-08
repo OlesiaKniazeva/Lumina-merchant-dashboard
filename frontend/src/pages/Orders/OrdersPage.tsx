@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Layout from '@layouts/layout';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import OrderCard from './components/OrderCard';
 import OrdersControls from './components/OrdersControls';
@@ -38,49 +38,51 @@ function OrdersPage() {
 
   return (
     <Layout>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="pageTitle" component="h1">
-          Orders
-        </Typography>
-      </Box>
+      <Container maxWidth="xl" sx={{ py: 3, px: { xs: 2, sm: 3, md: 4 } }}>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="pageTitle" component="h1">
+            Orders
+          </Typography>
+        </Box>
 
-      <OrdersControls
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        itemsPerPage={itemsPerPage}
-        onItemsPerPageChange={(value) => {
-          setItemsPerPage(value);
-          setPage(1);
-        }}
-      />
-
-      <Grid container spacing={{ xs: 2, md: 3 }}>
-        {orders.map((order) => (
-          <Grid
-            key={order.id}
-            size={{
-              xs: 12,
-            }}
-          >
-            <OrderCard
-              order={order}
-              onComplete={() => {
-                // TODO: Implement order completion
-              }}
-            />
-          </Grid>
-        ))}
-      </Grid>
-
-      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-        <PaginationComponent
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
+        <OrdersControls
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={(value) => {
+            setItemsPerPage(value);
+            setPage(1);
+          }}
         />
-      </Box>
+
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {orders.map((order) => (
+            <Grid
+              key={order.id}
+              size={{
+                xs: 12,
+              }}
+            >
+              <OrderCard
+                order={order}
+                onComplete={() => {
+                  // TODO: Implement order completion
+                }}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+          <PaginationComponent
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+          />
+        </Box>
+      </Container>
     </Layout>
   );
 }
