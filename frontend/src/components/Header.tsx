@@ -39,7 +39,7 @@ const StyledLink = styled(Link)<{ active?: string }>(({ theme, active }) => ({
 }));
 
 const Logo = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'component',
+  shouldForwardProp: (prop) => prop !== 'isHome' && prop !== 'component',
 })<{
   component?: ElementType;
   to?: string;
