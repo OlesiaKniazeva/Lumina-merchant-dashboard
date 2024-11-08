@@ -16,7 +16,7 @@ import {
   KeyboardArrowDown,
   KeyboardArrowUp,
 } from '@mui/icons-material';
-import useAdvertisement from '@hooks/useAdvertisement';
+import useAdvertisement from './hooks/useAdvertisement';
 import Layout from '@layouts/layout';
 import ErrorComponent from '@components/ErrorComponent';
 import { DEFAULT_PLACEHOLDER } from '@/constants/common';

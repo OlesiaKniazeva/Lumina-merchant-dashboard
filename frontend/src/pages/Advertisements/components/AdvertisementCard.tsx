@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate } from 'react-router-dom';
 import { DEFAULT_PLACEHOLDER } from '@/constants/common';
 
-interface ProductCardProps {
+interface AdvertisementCardProps {
   id: string;
   name: string;
   price: number;
@@ -13,14 +13,14 @@ interface ProductCardProps {
   imageUrl: string | undefined;
 }
 
-function ProductCard({
+function AdvertisementCard({
   id,
   name,
   price,
   views,
   likes,
   imageUrl = '',
-}: ProductCardProps) {
+}: AdvertisementCardProps) {
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -150,4 +150,4 @@ function ProductCard({
   );
 }
 
-export default ProductCard;
+export default AdvertisementCard;

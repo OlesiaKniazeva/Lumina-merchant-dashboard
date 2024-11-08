@@ -1,14 +1,14 @@
 import { Box, Container, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Layout from '@layouts/layout';
-import ProductCardList from '@components/ProductCardList';
+import AdvertisementsList from './components/AdvertisementsList';
 import PaginationComponent from '@components/Pagination';
 import ErrorComponent from '@components/ErrorComponent';
-import AdvertisementControls from '@components/AdvertisementsControls';
-import useAdvertisements from '@hooks/useAdvertisements';
+import AdvertisementsControls from './components/AdvertisementsControls';
+import useAdvertisements from './hooks/useAdvertisements';
 import usePagination from '@hooks/usePagination';
 
-function HomePage() {
+function AdvertisementsPage() {
   const theme = useTheme();
   const { page, adsPerPage, setPage, handleAdsPerPageChange } = usePagination();
 
@@ -34,7 +34,7 @@ function HomePage() {
           >
             Your Advertisements
           </Typography>
-          <AdvertisementControls
+          <AdvertisementsControls
             adsPerPage={adsPerPage}
             setAdsPerPage={handleAdsPerPageChange}
           />
@@ -72,7 +72,7 @@ function HomePage() {
 
         {!isLoading && !error && advertisements.length > 0 && (
           <>
-            <ProductCardList advertisements={advertisements} />
+            <AdvertisementsList advertisements={advertisements} />
             <Box
               sx={{
                 display: 'flex',
@@ -94,4 +94,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default AdvertisementsPage;

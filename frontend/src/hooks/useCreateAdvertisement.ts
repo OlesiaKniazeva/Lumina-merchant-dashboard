@@ -7,7 +7,7 @@ interface FormData {
   imageUrl: string;
 }
 
-export const useAdForm = (isOpen: boolean) => {
+export const useCreateAdvertisement = (isOpen: boolean) => {
   const [formData, setFormData] = useState<FormData>({
     title: '',
     description: '',

@@ -1,8 +1,9 @@
 import { Box, Stack } from '@mui/material';
-import { useTheme } from '@emotion/react';
-import AdvertisementCountSelector from '@components/AdvertisementsCountSelector';
+import { useTheme } from '@mui/material/styles';
+import AdvertisementCountSelector from './AdvertisementsCountSelector';
 import SearchBar from '@components/SearchBar';
 import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 interface AdvertisementControlsProps {
   adsPerPage: number;
@@ -16,9 +17,12 @@ function AdvertisementControls({
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleSearch = (query: string) => {
-    navigate(`?q=${encodeURIComponent(query)}&perPage=${adsPerPage}&page=1`);
-  };
+  const handleSearch = useCallback(
+    (query: string) => {
+      navigate(`?q=${encodeURIComponent(query)}&perPage=${adsPerPage}&page=1`);
+    },
+    [navigate, adsPerPage],
+  );
 
   return (
     <Stack

@@ -57,17 +57,16 @@ function useAdvertisement() {
     fetchAdvertisementDetails();
   }, [id]);
 
-  const handleUpdate = async (updatedData: Partial<Advertisement>) => {
-    if (!advertisement?.id) return;
-
+  const handleUpdate = async (updates: Partial<Advertisement>) => {
     try {
-      const updated = await updateAdvertisement(advertisement.id, updatedData);
-      setAdvertisement(updated);
-    } catch (err) {
-      setError(err as Error);
+      await updateAdvertisement(id!, updates);
+    } catch (error) {
+      console.error('Error updating advertisement:', error);
+      throw error;
     }
   };
 
   return { advertisement, isLoading, error, handleUpdate };
 }
+
 export default useAdvertisement;

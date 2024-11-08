@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/system';
 import useModal from '@hooks/useModal';
-import AdModal from '@components/AdModal';
+import CreateAdvertisementModal from './modals/CreateAdvertisementModal';
 import { useState } from 'react';
 import { ElementType } from 'react';
 import { Theme } from '@mui/material/styles';
@@ -283,7 +283,7 @@ function Header() {
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>New</Box>
         </Button>
       </Toolbar>
-      <AdModal open={isOpen} handleClose={closeModal} />
+      <CreateAdvertisementModal open={isOpen} handleClose={closeModal} />
     </AppBar>
   );
 }

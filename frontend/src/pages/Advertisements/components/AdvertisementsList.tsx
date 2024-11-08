@@ -1,12 +1,12 @@
 import Grid from '@mui/material/Grid2';
-import ProductCard from '@components/ProductCard';
+import AdvertisementCard from './AdvertisementCard';
 import { Advertisement } from '@/types';
 
-interface ProductCardListProps {
+interface AdvertisementsListProps {
   advertisements: Advertisement[];
 }
 
-function ProductCardList({ advertisements }: ProductCardListProps) {
+function AdvertisementsList({ advertisements }: AdvertisementsListProps) {
   return (
     <Grid
       container
@@ -26,7 +26,7 @@ function ProductCardList({ advertisements }: ProductCardListProps) {
             lg: 3,
           }}
         >
-          <ProductCard
+          <AdvertisementCard
             id={ad.id}
             name={ad.name}
             price={ad.price}
@@ -40,4 +40,4 @@ function ProductCardList({ advertisements }: ProductCardListProps) {
   );
 }
 
-export default ProductCardList;
+export default AdvertisementsList;

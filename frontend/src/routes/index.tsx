@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import HomePage from '@pages/HomePage';
+import AdvertisementsPage from '@pages/Advertisements/AdvertisementsPage';
 import ErrorPage from '@pages/ErrorPage';
 import AdvertisementPage from '@pages/AdvertisementDetails/AdvertisementPage';
 import OrdersPage from '@pages/Orders/OrdersPage';
@@ -14,7 +14,7 @@ const AppRouter = createBrowserRouter([
   },
   {
     path: '/advertisements',
-    element: <HomePage />,
+    element: <AdvertisementsPage />,
   },
   {
     path: '/advertisements/:id',

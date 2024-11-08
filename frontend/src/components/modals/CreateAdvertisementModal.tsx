@@ -13,8 +13,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ImageIcon from '@mui/icons-material/Image';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { useAdForm } from '@hooks/useAdForm';
-import { useAdForm } from '../hooks/useAdForm';
+import { useCreateAdvertisement } from '@/hooks/useCreateAdvertisement';
 
 interface AdModalProps {
   open: boolean;
@@ -31,7 +30,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
     imagePreview,
     imageError,
     titleInputRef,
-  } = useAdForm(open);
+  } = useCreateAdvertisement(open);
 
   const style = {
     position: 'absolute',
