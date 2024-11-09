@@ -189,16 +189,23 @@ function AdModal({ open, handleClose }: AdModalProps) {
                   <Box
                     sx={{
                       width: '100%',
-                      height: 200,
+                      maxWidth: '250px',
+                      position: 'relative',
+                      paddingTop: '250px',
                       borderRadius: 1,
                       overflow: 'hidden',
-                      position: 'relative',
+                      border: `1px solid ${theme.palette.divider}`,
+                      mx: 'auto',
+                      bgcolor: 'rgba(0, 0, 0, 0.03)',
                     }}
                   >
                     <img
                       src={imagePreview}
                       alt="Advertisement preview"
                       style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
