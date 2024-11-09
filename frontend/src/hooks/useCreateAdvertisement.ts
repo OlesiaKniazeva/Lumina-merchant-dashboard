@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createAdvertisement } from '@/services/advertisementsService';
 
 interface FormData {
   title: string;
@@ -18,6 +20,8 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string>('');
+  const navigate = useNavigate();
+
   const titleInputRef = useRef<HTMLInputElement>(null);
   const priceInputRef = useRef<HTMLInputElement>(null);
 
@@ -82,7 +86,10 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
     return '';
   };
 
-  const handleSubmit = (event: React.FormEvent, onSuccess: () => void) => {
+  const handleSubmit = async (
+    event: React.FormEvent,
+    onSuccess: () => void,
+  ) => {
     event.preventDefault();
     setWasSubmitted(true);
 
@@ -105,7 +112,22 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
     }
 
     if (isFormValid()) {
-      onSuccess();
+      try {
+        const newAd = await createAdvertisement({
+          name: formData.title,
+          description: formData.description,
+          price: Number(formData.price),
+          imageUrl: formData.imageUrl,
+          createdAt: new Date().toISOString(),
+          views: 0,
+          likes: 0,
+        });
+
+        onSuccess(); // Close modal
+        navigate(`/advertisements/${newAd.id}`); // Redirect to new ad
+      } catch (error) {
+        console.error('Failed to create advertisement:', error);
+      }
     }
   };
 
