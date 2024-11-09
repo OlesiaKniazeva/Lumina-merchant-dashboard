@@ -30,6 +30,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
     imagePreview,
     imageError,
     titleInputRef,
+    priceInputRef,
   } = useCreateAdvertisement(open);
 
   const style = {
@@ -131,6 +132,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
               />
 
               <TextField
+                inputRef={priceInputRef}
                 label="Price"
                 type="number"
                 variant="filled"

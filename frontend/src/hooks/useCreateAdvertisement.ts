@@ -19,6 +19,7 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string>('');
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const priceInputRef = useRef<HTMLInputElement>(null);
 
   // Focus management
   useEffect(() => {
@@ -61,7 +62,22 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
 
   const getErrorMessage = (field: 'title' | 'price') => {
     if (wasSubmitted && !formData[field]) {
-      return field === 'title' ? 'Title is required' : 'Price is required';
+      if (field === 'title') {
+        titleInputRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        titleInputRef.current?.focus();
+        return 'Title is required';
+      }
+      if (field === 'price') {
+        priceInputRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        priceInputRef.current?.focus();
+        return 'Price is required';
+      }
     }
     return '';
   };
@@ -69,6 +85,24 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   const handleSubmit = (event: React.FormEvent, onSuccess: () => void) => {
     event.preventDefault();
     setWasSubmitted(true);
+
+    if (!formData.title) {
+      titleInputRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      titleInputRef.current?.focus();
+      return;
+    }
+
+    if (!formData.price) {
+      priceInputRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      priceInputRef.current?.focus();
+      return;
+    }
 
     if (isFormValid()) {
       onSuccess();
@@ -85,6 +119,7 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
     imagePreview,
     imageError,
     titleInputRef,
+    priceInputRef,
     handleChange,
     getErrorMessage,
     handleSubmit,
