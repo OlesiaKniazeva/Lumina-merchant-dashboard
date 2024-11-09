@@ -4,16 +4,19 @@ import {
   TextField,
   Button,
   Typography,
-  Paper,
   IconButton,
   InputAdornment,
   useTheme,
   Fade,
+  CircularProgress,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ImageIcon from '@mui/icons-material/Image';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useCreateAdvertisement } from '@/hooks/useCreateAdvertisement';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface AdModalProps {
   open: boolean;
@@ -31,20 +34,12 @@ function AdModal({ open, handleClose }: AdModalProps) {
     imageError,
     titleInputRef,
     priceInputRef,
+    imageInputRef,
+    isCreating,
+    showSuccess,
+    error,
+    setError,
   } = useCreateAdvertisement(open);
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: { xs: '90%', sm: 600 },
-    maxHeight: '90vh',
-    overflow: 'auto',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    borderRadius: 2,
-  };
 
   const inputStyles = {
     '& .MuiFilledInput-root': {
@@ -69,26 +64,35 @@ function AdModal({ open, handleClose }: AdModalProps) {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-    >
-      <Paper sx={style}>
-        <Box sx={{ p: 3 }}>
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: { xs: '90%', sm: 600 },
+            maxHeight: '90vh',
+            overflow: 'auto',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            borderRadius: 2,
+            p: 3,
+          }}
+        >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             mb={3}
           >
-            <Typography
-              id="modal-title"
-              variant="h5"
-              component="h2"
-              fontWeight="bold"
-            >
+            <Typography variant="h5" component="h2" fontWeight="bold">
               Create New Advertisement
             </Typography>
             <IconButton
@@ -165,6 +169,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
               />
 
               <TextField
+                inputRef={imageInputRef}
                 label="Image URL (optional)"
                 variant="filled"
                 value={formData.imageUrl}
@@ -221,6 +226,7 @@ function AdModal({ open, handleClose }: AdModalProps) {
                 <Button
                   variant="contained"
                   type="submit"
+                  disabled={isCreating}
                   sx={{
                     width: '250px',
                     height: '48px',
@@ -234,14 +240,70 @@ function AdModal({ open, handleClose }: AdModalProps) {
                     },
                   }}
                 >
-                  Create Advertisement
+                  {isCreating ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <CircularProgress size={20} color="inherit" />
+                      <span>Creating...</span>
+                    </Box>
+                  ) : (
+                    'Create Advertisement'
+                  )}
                 </Button>
               </Box>
             </Box>
           </form>
         </Box>
-      </Paper>
-    </Modal>
+      </Modal>
+
+      {/* Success Message */}
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={1500}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{
+          marginTop: 8,
+        }}
+      >
+        <Alert
+          icon={<CheckCircleOutlineIcon fontSize="inherit" />}
+          severity="success"
+          sx={{
+            width: '100%',
+            minWidth: 300,
+            backgroundColor: '#E8F5E9',
+            color: '#1B5E20',
+            '& .MuiAlert-icon': {
+              color: '#2E7D32',
+              fontSize: '24px',
+            },
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+            borderRadius: 2,
+            py: 1.5,
+            alignItems: 'center',
+            '& .MuiAlert-message': {
+              fontSize: '1rem',
+              fontWeight: 500,
+            },
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            Advertisement created successfully!
+          </Box>
+        </Alert>
+      </Snackbar>
+
+      {/* Error Message */}
+      <Snackbar
+        open={!!error}
+        autoHideDuration={4000}
+        onClose={() => setError(null)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 

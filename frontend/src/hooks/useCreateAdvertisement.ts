@@ -20,14 +20,19 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string>('');
+  const [isCreating, setIsCreating] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const titleInputRef = useRef<HTMLInputElement>(null);
   const priceInputRef = useRef<HTMLInputElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
-  // Focus management
+  // Focus title input when modal opens
   useEffect(() => {
     if (isOpen) {
+      // Small timeout to ensure modal is fully rendered
       const timeoutId = setTimeout(() => {
         titleInputRef.current?.focus();
       }, 100);
@@ -67,23 +72,23 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   const getErrorMessage = (field: 'title' | 'price') => {
     if (wasSubmitted && !formData[field]) {
       if (field === 'title') {
-        titleInputRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-        titleInputRef.current?.focus();
         return 'Title is required';
       }
       if (field === 'price') {
-        priceInputRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-        priceInputRef.current?.focus();
         return 'Price is required';
       }
     }
     return '';
+  };
+
+  const focusOnInvalidField = () => {
+    if (!formData.title) {
+      titleInputRef.current?.focus();
+    } else if (!formData.price) {
+      priceInputRef.current?.focus();
+    } else if (imageError) {
+      imageInputRef.current?.focus();
+    }
   };
 
   const handleSubmit = async (
@@ -92,26 +97,14 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
   ) => {
     event.preventDefault();
     setWasSubmitted(true);
+    setError(null);
 
-    if (!formData.title) {
-      titleInputRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-      titleInputRef.current?.focus();
-      return;
-    }
-
-    if (!formData.price) {
-      priceInputRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-      priceInputRef.current?.focus();
-      return;
+    if (!isFormValid()) {
+      focusOnInvalidField();
     }
 
     if (isFormValid()) {
+      setIsCreating(true);
       try {
         const newAd = await createAdvertisement({
           name: formData.title,
@@ -123,25 +116,58 @@ export const useCreateAdvertisement = (isOpen: boolean) => {
           likes: 0,
         });
 
-        onSuccess(); // Close modal
-        navigate(`/advertisements/${newAd.id}`); // Redirect to new ad
+        setShowSuccess(true);
+        // Reset form only after successful creation
+        setFormData({
+          title: '',
+          description: '',
+          price: '',
+          imageUrl: '',
+        });
+        setImagePreview(null);
+        setImageError('');
+        setWasSubmitted(false);
+
+        setTimeout(() => {
+          onSuccess();
+          navigate(`/advertisements/${newAd.id}`);
+        }, 1500);
       } catch (error) {
-        console.error('Failed to create advertisement:', error);
+        setError(
+          error instanceof Error
+            ? error.message
+            : 'Failed to create advertisement',
+        );
+      } finally {
+        setIsCreating(false);
       }
     }
   };
 
   const isFormValid = () => {
-    return formData.title && formData.price;
+    return formData.title && formData.price && !imageError;
   };
+
+  // Only reset validation states when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setWasSubmitted(false);
+      setError(null);
+    }
+  }, [isOpen]);
 
   return {
     formData,
     wasSubmitted,
     imagePreview,
     imageError,
+    isCreating,
+    showSuccess,
+    error,
+    setError,
     titleInputRef,
     priceInputRef,
+    imageInputRef,
     handleChange,
     getErrorMessage,
     handleSubmit,
