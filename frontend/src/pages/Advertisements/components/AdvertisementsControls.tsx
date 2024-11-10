@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import SearchBar from '@components/SearchBar';
-import CountSelector from '@components/CountSelector';
+import DropdownSelector from '@/components/DropdownSelector';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
@@ -22,6 +22,14 @@ function AdvertisementControls({
     [navigate, adsPerPage],
   );
 
+  const perPageOptions = [
+    { value: 10, label: '10 items' },
+    { value: 20, label: '20 items' },
+    { value: 40, label: '40 items' },
+    { value: 50, label: '50 items' },
+    { value: 100, label: '100 items' },
+  ];
+
   return (
     <Box
       sx={{
@@ -32,14 +40,14 @@ function AdvertisementControls({
       }}
     >
       <SearchBar onSearch={handleSearch} />
-      <CountSelector
-        count={adsPerPage}
-        setCount={setAdsPerPage}
+      <DropdownSelector<number>
+        value={adsPerPage}
+        onChange={setAdsPerPage}
+        options={perPageOptions}
+        label="Items per page"
         size="medium"
         variant="outlined"
         minWidth={200}
-        label="Items per page"
-        options={[10, 20, 40, 50, 100]}
       />
     </Box>
   );
