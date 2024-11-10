@@ -42,7 +42,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
 }));
 
-function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
