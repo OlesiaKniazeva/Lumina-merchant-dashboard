@@ -1,7 +1,6 @@
-import { Box, Stack } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import AdvertisementCountSelector from './AdvertisementsCountSelector';
+import { Box } from '@mui/material';
 import SearchBar from '@components/SearchBar';
+import CountSelector from '@components/CountSelector';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
@@ -15,7 +14,6 @@ function AdvertisementControls({
   setAdsPerPage,
 }: AdvertisementControlsProps) {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleSearch = useCallback(
     (query: string) => {
@@ -25,25 +23,25 @@ function AdvertisementControls({
   );
 
   return (
-    <Stack
-      direction={{ xs: 'column', sm: 'row' }}
-      spacing={{ xs: 3, sm: 3 }}
-      alignItems={{ xs: 'stretch', sm: 'center' }}
+    <Box
       sx={{
-        width: '100%',
-        fontFamily: theme.typography.fontFamily,
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: 2,
+        mb: { xs: 3, sm: 4 },
       }}
     >
-      <Box sx={{ flex: 1 }}>
-        <SearchBar onSearch={handleSearch} />
-      </Box>
-      <Box sx={{ minWidth: 120 }}>
-        <AdvertisementCountSelector
-          count={adsPerPage}
-          setCount={setAdsPerPage}
-        />
-      </Box>
-    </Stack>
+      <SearchBar onSearch={handleSearch} />
+      <CountSelector
+        count={adsPerPage}
+        setCount={setAdsPerPage}
+        size="medium"
+        variant="outlined"
+        minWidth={200}
+        label="Items per page"
+        options={[10, 20, 40, 50, 100]}
+      />
+    </Box>
   );
 }
 
