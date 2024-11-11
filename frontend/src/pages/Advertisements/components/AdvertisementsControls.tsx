@@ -1,26 +1,21 @@
 import { Box } from '@mui/material';
 import SearchBar from '@components/SearchBar';
 import DropdownSelector from '@/components/DropdownSelector';
-import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface AdvertisementControlsProps {
   adsPerPage: number;
   setAdsPerPage: (perPage: number) => void;
+  onSearch: (query: string) => void;
 }
 
 function AdvertisementControls({
   adsPerPage,
   setAdsPerPage,
+  onSearch,
 }: AdvertisementControlsProps) {
-  const navigate = useNavigate();
-
-  const handleSearch = useCallback(
-    (query: string) => {
-      navigate(`?q=${encodeURIComponent(query)}&perPage=${adsPerPage}&page=1`);
-    },
-    [navigate, adsPerPage],
-  );
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
   const perPageOptions = [
     { value: 10, label: '10 items' },
@@ -39,15 +34,15 @@ function AdvertisementControls({
         mb: { xs: 3, sm: 4 },
       }}
     >
-      <SearchBar onSearch={handleSearch} />
-      <DropdownSelector<number>
+      <SearchBar
+        onSearch={onSearch}
+        initialValue={queryParams.get('q') || ''}
+      />
+      <DropdownSelector
         value={adsPerPage}
         onChange={setAdsPerPage}
         options={perPageOptions}
         label="Items per page"
-        size="medium"
-        variant="outlined"
-        minWidth={200}
       />
     </Box>
   );

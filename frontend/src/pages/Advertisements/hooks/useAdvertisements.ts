@@ -46,7 +46,6 @@ function useAdvertisements({ currentPage, perPage }: UseAdvertisementsProps) {
           if (err.name === 'AbortError') {
             return;
           }
-
           setError(err);
         } else {
           console.error('Unknown error type:', err);
@@ -59,7 +58,7 @@ function useAdvertisements({ currentPage, perPage }: UseAdvertisementsProps) {
     fetchAdvertisements();
   }, [currentPage, perPage, searchTerm]);
 
-  return { advertisements, totalPages, isLoading, error };
+  return { advertisements, totalPages, isLoading, error, searchTerm };
 }
 
 export default useAdvertisements;

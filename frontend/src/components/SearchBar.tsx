@@ -1,6 +1,6 @@
 import { Box, InputBase, Button, IconButton, styled } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useState } from 'react';
+import useSearchInput from '@/hooks/useSearchInput';
 
 const SearchBarContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -44,15 +44,14 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
+  initialValue?: string;
 }
 
-function SearchBar({ onSearch }: SearchBarProps) {
-  const [query, setQuery] = useState('');
+function SearchBar({ onSearch, initialValue = '' }: SearchBarProps) {
+  const { query, setQuery } = useSearchInput(initialValue);
 
   const handleSearch = () => {
-    if (query.trim()) {
-      onSearch(query);
-    }
+    onSearch(query.trim());
   };
 
   const handleClear = () => {

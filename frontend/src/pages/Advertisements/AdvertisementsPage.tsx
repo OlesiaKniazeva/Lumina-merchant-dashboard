@@ -7,15 +7,31 @@ import ErrorComponent from '@components/ErrorComponent';
 import AdvertisementsControls from './components/AdvertisementsControls';
 import useAdvertisements from './hooks/useAdvertisements';
 import usePagination from '@hooks/usePagination';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function AdvertisementsPage() {
   const theme = useTheme();
-  const { page, adsPerPage, setPage, handleAdsPerPageChange } = usePagination();
+  const { page, adsPerPage, setPage, handleAdsPerPageChange, resetPage } =
+    usePagination();
 
   const { advertisements, totalPages, isLoading, error } = useAdvertisements({
     currentPage: page,
     perPage: adsPerPage,
   });
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSearch = (query: string) => {
+    resetPage();
+    const params = new URLSearchParams(location.search);
+    if (query) {
+      params.set('q', query);
+    } else {
+      params.delete('q');
+    }
+    navigate(`?${params.toString()}`);
+  };
 
   return (
     <Layout>
@@ -30,6 +46,7 @@ function AdvertisementsPage() {
           <AdvertisementsControls
             adsPerPage={adsPerPage}
             setAdsPerPage={handleAdsPerPageChange}
+            onSearch={handleSearch}
           />
         </Box>
 
