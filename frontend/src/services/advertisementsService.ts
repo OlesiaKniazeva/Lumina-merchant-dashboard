@@ -2,6 +2,25 @@ import api from './axiosConfig';
 import { Advertisement } from '@/types';
 import axios from 'axios';
 
+function buildAdvertisementsUrl(params: {
+  page: number;
+  perPage: number;
+  searchTerm?: string;
+}): string {
+  const { page, perPage, searchTerm } = params;
+
+  const searchParams = new URLSearchParams();
+
+  searchParams.append('_page', String(page));
+  searchParams.append('_limit', String(perPage));
+
+  if (searchTerm) {
+    searchParams.append('name_like', searchTerm);
+  }
+
+  return `/advertisements?${searchParams.toString()}`;
+}
+
 export async function getAdvertisements(
   page: number = 1,
   perPage: number = 10,
@@ -9,29 +28,23 @@ export async function getAdvertisements(
   signal?: AbortSignal,
 ) {
   try {
-    let url = `/advertisements?_page=${page}&_limit=${perPage}`;
-
-    if (searchTerm) {
-      url += `&name_like=${encodeURIComponent(searchTerm)}`;
-    }
-
+    const url = buildAdvertisementsUrl({ page, perPage, searchTerm });
     const response = await api.get(url, { signal });
 
-    const pages =
-      response.headers['x-total-count'] / perPage > 0
-        ? Math.ceil(response.headers['x-total-count'] / perPage)
-        : 1;
+    const pages = response.headers['x-total-count']
+      ? Math.ceil(Number(response.headers['x-total-count']) / perPage)
+      : 1;
+
     return {
-      pages: pages,
+      pages,
       data: response.data,
     };
   } catch (error) {
     if (axios.isCancel(error)) {
-      // console.log('Request canceled', error.message);
-    } else {
-      console.error('Error fetching advertisements:', error);
-      throw error;
+      return;
     }
+    console.error('Error fetching advertisements:', error);
+    throw error;
   }
 }
 
