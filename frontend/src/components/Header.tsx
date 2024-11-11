@@ -9,66 +9,26 @@ import {
   MenuItem,
   useTheme,
 } from '@mui/material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import MenuIcon from '@mui/icons-material/Menu';
-import { styled } from '@mui/system';
 import useModal from '@hooks/useModal';
-import CreateAdvertisementModal from './modals/CreateAdvertisementModal';
+import CreateAdvertisementModal from './CreateAdvertisementModal';
 import { useState } from 'react';
-import { ElementType } from 'react';
-import { Theme } from '@mui/material/styles';
+import Logo from './Logo';
+import NavLink from './NavLink';
 
-const StyledLink = styled(Link)<{ active?: string }>(({ theme, active }) => ({
-  marginRight: '24px',
-  textDecoration: 'none',
-  color: active ? theme.palette.custom.logo : theme.palette.text.primary,
-  fontWeight: active ? 600 : 500,
-  fontSize: '1.1rem',
-  fontFamily: "'Inter', sans-serif",
-  cursor: active ? 'default' : 'pointer',
-  pointerEvents: active ? 'none' : 'auto',
-  borderBottom: active ? `2px solid ${theme.palette.custom.logo}` : 'none',
-  paddingBottom: '8px',
-  paddingTop: '8px',
-  transition: 'all 0.2s ease',
-  '&:hover': {
-    color: !active ? theme.palette.custom.logo : undefined,
-    transform: !active ? 'translateY(-1px)' : undefined,
-  },
-}));
+interface NavProps {
+  isAdvertisementsPage: boolean;
+  isOrdersPage: boolean;
+}
 
-const Logo = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isHome' && prop !== 'component',
-})<{
-  component?: ElementType;
-  to?: string;
-  theme?: Theme;
-  isHome?: boolean;
-}>(({ theme, isHome }) => {
-  if (!theme) throw new Error('Theme is required');
-
-  return {
-    color: theme.palette.custom.logo,
-    fontWeight: theme.typography.logo.fontWeight,
-    textDecoration: 'none',
-    fontSize: '2.75rem',
-    letterSpacing: theme.typography.logo.letterSpacing,
-    lineHeight: 1,
-    fontFamily: "'Gilda Display', serif",
-    transition: 'opacity 0.2s ease',
-    cursor: isHome ? 'default' : 'pointer',
-    '&:hover': {
-      opacity: isHome ? 1 : 0.85,
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem',
-    },
-    [theme.breakpoints.only('sm')]: {
-      fontSize: '2.5rem',
-    },
-  };
-});
+interface MobileNavProps extends NavProps {
+  anchorEl: null | HTMLElement;
+  open: boolean;
+  handleMenuClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleMenuClose: () => void;
+}
 
 const DesktopNav = ({ isAdvertisementsPage, isOrdersPage }: NavProps) => (
   <Box
@@ -80,15 +40,12 @@ const DesktopNav = ({ isAdvertisementsPage, isOrdersPage }: NavProps) => (
       marginRight: 3,
     }}
   >
-    <StyledLink
-      to="/advertisements"
-      active={isAdvertisementsPage ? 'true' : undefined}
-    >
+    <NavLink to="/advertisements" active={isAdvertisementsPage}>
       Advertisements
-    </StyledLink>
-    <StyledLink to="/orders" active={isOrdersPage ? 'true' : undefined}>
+    </NavLink>
+    <NavLink to="/orders" active={isOrdersPage}>
       Orders
-    </StyledLink>
+    </NavLink>
   </Box>
 );
 
@@ -99,12 +56,7 @@ const MobileNav = ({
   open,
   handleMenuClick,
   handleMenuClose,
-}: NavProps & {
-  anchorEl: null | HTMLElement;
-  open: boolean;
-  handleMenuClick: (event: React.MouseEvent<HTMLElement>) => void;
-  handleMenuClose: () => void;
-}) => {
+}: MobileNavProps) => {
   const theme = useTheme();
 
   return (
@@ -141,43 +93,39 @@ const MobileNav = ({
           },
         }}
       >
-        <MenuItem
-          onClick={handleMenuClose}
-          component={Link}
-          to="/advertisements"
-          sx={{
-            color: isAdvertisementsPage
-              ? theme.palette.custom.logo
-              : theme.palette.text.primary,
-            fontWeight: isAdvertisementsPage ? 600 : 400,
-            py: 1.5,
-          }}
-        >
-          Advertisements
+        <MenuItem onClick={handleMenuClose} disableGutters>
+          <NavLink to="/advertisements" active={isAdvertisementsPage} isMobile>
+            Advertisements
+          </NavLink>
         </MenuItem>
-        <MenuItem
-          onClick={handleMenuClose}
-          component={Link}
-          to="/orders"
-          sx={{
-            color: isOrdersPage
-              ? theme.palette.custom.logo
-              : theme.palette.text.primary,
-            fontWeight: isOrdersPage ? 600 : 400,
-            py: 1.5,
-          }}
-        >
-          Orders
+        <MenuItem onClick={handleMenuClose} disableGutters>
+          <NavLink to="/orders" active={isOrdersPage} isMobile>
+            Orders
+          </NavLink>
         </MenuItem>
       </Menu>
     </>
   );
 };
 
-interface NavProps {
-  isAdvertisementsPage: boolean;
-  isOrdersPage: boolean;
-}
+const DashboardSubtitle = () => (
+  <Typography
+    sx={{
+      color: 'text.secondary',
+      fontSize: '0.64rem',
+      fontWeight: 500,
+      letterSpacing: '0.06em',
+      fontFamily: 'inherit',
+      textTransform: 'uppercase',
+      mt: -0.3,
+      ml: 0.25,
+      opacity: 0.8,
+      display: { xs: 'none', sm: 'block' },
+    }}
+  >
+    Merchant Dashboard
+  </Typography>
+);
 
 function Header() {
   const theme = useTheme();
@@ -222,29 +170,10 @@ function Header() {
       >
         <Box>
           <Logo
-            component="div"
-            onClick={isAdvertisementsPage ? undefined : handleLogoClick}
             isHome={isAdvertisementsPage}
-            variant="h5"
-          >
-            Lumina
-          </Logo>
-          <Typography
-            sx={{
-              color: theme.palette.text.secondary,
-              fontSize: '0.66rem',
-              fontWeight: 500,
-              letterSpacing: '0.06em',
-              fontFamily: "'Inter', sans-serif",
-              textTransform: 'uppercase',
-              mt: 0.5,
-              ml: 0.25,
-              opacity: 0.8,
-              display: { xs: 'none', sm: 'block' },
-            }}
-          >
-            Merchant Dashboard
-          </Typography>
+            onClick={isAdvertisementsPage ? undefined : handleLogoClick}
+          />
+          <DashboardSubtitle />
         </Box>
 
         <DesktopNav
