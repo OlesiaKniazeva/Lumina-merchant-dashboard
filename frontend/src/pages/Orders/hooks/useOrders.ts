@@ -1,13 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { getOrders } from '@/services/ordersService';
-import type { Order } from '@/types';
+import type { Order, OrderStatusValue } from '@/types/index';
 
 interface UseOrdersProps {
   page: number;
   perPage: number;
+  statuses?: OrderStatusValue[];
+  sortOrder: 'none' | 'asc' | 'desc';
 }
 
-export function useOrders({ page, perPage }: UseOrdersProps) {
+export function useOrders({
+  page,
+  perPage,
+  statuses,
+  sortOrder,
+}: UseOrdersProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -28,13 +35,17 @@ export function useOrders({ page, perPage }: UseOrdersProps) {
           page,
           perPage,
           abortControllerRef.current.signal,
+          statuses,
+          sortOrder !== 'none' ? sortOrder : undefined,
         );
         if (response) {
           setOrders(response.data);
           setTotalPages(response.pages);
         }
-      } catch (err) {
-        setError(err as Error);
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name !== 'AbortError') {
+          setError(err);
+        }
       } finally {
         setLoading(false);
       }
@@ -45,7 +56,7 @@ export function useOrders({ page, perPage }: UseOrdersProps) {
     return () => {
       abortControllerRef.current?.abort();
     };
-  }, [page, perPage]);
+  }, [page, perPage, statuses, sortOrder]);
 
   return { orders, totalPages, loading, error };
 }

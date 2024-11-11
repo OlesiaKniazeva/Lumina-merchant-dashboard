@@ -9,7 +9,7 @@ export const getStatusLabel = (status: number) => {
     case OrderStatus.Transport:
       return 'In Transit';
     case OrderStatus.DeliveredToThePoint:
-      return 'Delivered to Point';
+      return 'Delivered';
     case OrderStatus.Received:
       return 'Received';
     case OrderStatus.Archived:

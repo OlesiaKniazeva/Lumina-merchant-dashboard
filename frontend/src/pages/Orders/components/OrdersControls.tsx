@@ -1,90 +1,98 @@
-import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { OrderStatus } from '@/types';
-import { useTheme } from '@mui/material/styles';
+import { Box, styled } from '@mui/material';
+import { OrderStatusValue } from '@/types/index';
+import DropdownSelector from '@/components/DropdownSelector';
+import ChipSelector from '@/components/ChipSelector';
+import { itemsPerPageOptions } from '../constants';
+import SortingChips from './SortingChips';
+
+// Styled components section
+const ControlsContainer = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+  display: 'flex',
+  gap: theme.spacing(2),
+  alignItems: 'flex-end',
+  [theme.breakpoints.down('md')]: {
+    flexWrap: 'wrap',
+    gap: theme.spacing(3),
+  },
+}));
+
+const FilterSection = styled(Box)(({ theme }) => ({
+  flex: '1 1 auto',
+  display: 'flex',
+  alignItems: 'center',
+  [theme.breakpoints.down('md')]: {
+    flex: '1 1 100%',
+    maxWidth: '100%',
+  },
+}));
+
+const SortingSection = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  alignItems: 'flex-start',
+  [theme.breakpoints.down('sm')]: {
+    flex: '1 1 100%',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+    alignItems: 'stretch',
+    '& > *': {
+      maxWidth: '250px',
+      width: '100%',
+    },
+  },
+  [theme.breakpoints.up('sm')]: {
+    flex: '0 0 auto',
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+  },
+}));
 
 interface OrdersControlsProps {
-  statusFilter: string;
-  setStatusFilter: (status: string) => void;
-  sortOrder: 'asc' | 'desc';
-  setSortOrder: (order: 'asc' | 'desc') => void;
+  selectedStatuses: OrderStatusValue[];
+  setSelectedStatuses: (statuses: OrderStatusValue[]) => void;
+  sortOrder: 'none' | 'asc' | 'desc';
+  setSortOrder: (order: 'none' | 'asc' | 'desc') => void;
   itemsPerPage: number;
-  onItemsPerPageChange: (itemsPerPage: number) => void;
+  setItemsPerPage: (perPage: number) => void;
+  setPage: (page: number) => void;
 }
 
 function OrdersControls({
-  statusFilter,
-  setStatusFilter,
+  selectedStatuses,
+  setSelectedStatuses,
   sortOrder,
   setSortOrder,
   itemsPerPage,
-  onItemsPerPageChange,
+  setItemsPerPage,
+  setPage,
 }: OrdersControlsProps) {
-  const theme = useTheme();
-
-  const selectStyles = {
-    minWidth: 200,
-    '& .MuiOutlinedInput-root': {
-      backgroundColor: 'white',
-      '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.secondary.main,
-      },
-      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.secondary.main,
-        borderWidth: '1px',
-      },
-    },
-    '& .MuiInputLabel-root.Mui-focused': {
-      color: theme.palette.secondary.main,
-    },
-  };
-
   return (
-    <Box sx={{ mb: 3, display: 'flex', gap: 2 }}>
-      <FormControl size="small" sx={selectStyles}>
-        <InputLabel>Status</InputLabel>
-        <Select
-          value={statusFilter}
-          label="Status"
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <MenuItem value="all">All</MenuItem>
-          <MenuItem value={OrderStatus.Created}>Created</MenuItem>
-          <MenuItem value={OrderStatus.Paid}>Paid</MenuItem>
-          <MenuItem value={OrderStatus.Transport}>In Transit</MenuItem>
-          <MenuItem value={OrderStatus.DeliveredToThePoint}>Delivered</MenuItem>
-          <MenuItem value={OrderStatus.Received}>Received</MenuItem>
-          <MenuItem value={OrderStatus.Archived}>Archived</MenuItem>
-          <MenuItem value={OrderStatus.Refund}>Refunded</MenuItem>
-        </Select>
-      </FormControl>
+    <ControlsContainer>
+      {/* Status filter section */}
+      <FilterSection>
+        <ChipSelector
+          selectedStatuses={selectedStatuses}
+          onChange={setSelectedStatuses}
+        />
+      </FilterSection>
 
-      <FormControl size="small" sx={selectStyles}>
-        <InputLabel>Sort by Total</InputLabel>
-        <Select
-          value={sortOrder}
-          label="Sort by Total"
-          onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-        >
-          <MenuItem value="asc">Price: Low to High</MenuItem>
-          <MenuItem value="desc">Price: High to Low</MenuItem>
-        </Select>
-      </FormControl>
+      {/* Sorting and pagination controls */}
+      <SortingSection>
+        <SortingChips value={sortOrder} onChange={setSortOrder} />
 
-      <FormControl size="small" sx={selectStyles}>
-        <InputLabel>Items per page</InputLabel>
-        <Select
+        <DropdownSelector<number>
           value={itemsPerPage}
+          onChange={(value) => {
+            setItemsPerPage(value);
+            setPage(1);
+          }}
+          options={itemsPerPageOptions}
           label="Items per page"
-          onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-        >
-          <MenuItem value={10}>10 items</MenuItem>
-          <MenuItem value={20}>20 items</MenuItem>
-          <MenuItem value={40}>40 items</MenuItem>
-          <MenuItem value={50}>50 items</MenuItem>
-          <MenuItem value={100}>100 items</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+          size="small"
+        />
+      </SortingSection>
+    </ControlsContainer>
   );
 }
 

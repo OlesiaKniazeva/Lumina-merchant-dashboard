@@ -1,17 +1,50 @@
 import api from './axiosConfig';
-import { Order } from '@/types';
+import { Order, OrderStatusValue } from '@/types/index';
 import axios from 'axios';
+
+// Helper function to build the query string
+function buildOrdersUrl(params: {
+  page: number;
+  perPage: number;
+  statuses?: OrderStatusValue[];
+  sortOrder?: 'none' | 'asc' | 'desc';
+}): string {
+  const { page, perPage, statuses, sortOrder } = params;
+
+  // Create URLSearchParams directly
+  const searchParams = new URLSearchParams();
+
+  // Add pagination params
+  searchParams.append('_page', String(page));
+  searchParams.append('_limit', String(perPage));
+
+  // Only add sorting if it's not 'none'
+  if (sortOrder && sortOrder !== 'none') {
+    searchParams.append('_sort', 'total');
+    searchParams.append('_order', sortOrder);
+  }
+
+  // Add status filters if provided
+  if (statuses && statuses.length > 0) {
+    statuses.forEach((status) => {
+      searchParams.append('status', String(status));
+    });
+  }
+
+  // Combine base path with search params
+  return `/orders?${searchParams.toString()}`;
+}
 
 export async function getOrders(
   page: number = 1,
   perPage: number = 10,
   signal?: AbortSignal,
+  statuses?: OrderStatusValue[],
+  sortOrder?: 'asc' | 'desc',
 ) {
   try {
-    const response = await api.get<Order[]>(
-      `/orders?_page=${page}&_limit=${perPage}`,
-      { signal },
-    );
+    const url = buildOrdersUrl({ page, perPage, statuses, sortOrder });
+    const response = await api.get<Order[]>(url, { signal });
 
     const pages = response.headers['x-total-count']
       ? Math.ceil(Number(response.headers['x-total-count']) / perPage)
