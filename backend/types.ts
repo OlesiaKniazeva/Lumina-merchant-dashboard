@@ -1,22 +1,21 @@
 type Advertisement = {
-    /* Уникальный идентификатор. */
+    /* Unique identifier. */
     id: string;
-    /* Название. */
+    /* Name. */
     name: string;
-    /* Описание. */
+    /* Description. */
     description?: string;
-    /* Цена. */
+    /* Price. */
     price: number;
-    /* Дата и время создания. */
+    /* Creation date and time. */
     createdAt: string;
-    /* Количество просмотров. */
+    /* Number of views. */
     views: number;
-    /* Количество лайков. */
+    /* Number of likes. */
     likes: number;
-    /* Ссылка на изображение. */
+    /* Image URL. */
     imageUrl?: string;
 }
-
 
 const OrderStatus = {
     Created: 0,
@@ -28,31 +27,30 @@ const OrderStatus = {
     Refund: 6
 } as const;
 
-
 type OrderItem = Advertisement & { count: number; };
 
 type Order = {
-    /* Уникальный идентификатор. */
+    /* Unique identifier. */
     id: string;
-    /* Статус. */
+    /* Status. */
     status: typeof OrderStatus[keyof typeof OrderStatus];
-    /* Дата и время создания. */
+    /* Creation date and time. */
     createdAt: string;
-    /* Дата и время завершения. */
+    /* Completion date and time. */
     finishedAt?: string;
-    /* Товары в заказе. */
+    /* Items in the order. */
     items: Array<OrderItem>;
-    /* Способ доставки(Почта, СДЭК...) */
+    /* Delivery method (Post, CDEK...) */
     deliveryWay: string;
-    /* Сумма заказа */
+    /* Order total amount */
     total: number;
 }
 
 type Image = {
-    /* Уникальный идентификатор. */
+    /* Unique identifier. */
     id: number;
-    /* Ссылка. */
+    /* URL. */
     url: string;
-    /* Название. */
+    /* Name. */
     name: string;
 }

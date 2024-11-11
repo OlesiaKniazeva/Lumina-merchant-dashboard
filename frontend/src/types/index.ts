@@ -1,22 +1,23 @@
 export type Advertisement = {
-  /* Уникальный идентификатор. */
+  /* Unique identifier. */
   id: string;
-  /* Название. */
+  /* Name. */
   name: string;
-  /* Описание. */
+  /* Description. */
   description?: string;
-  /* Цена. */
+  /* Price. */
   price: number;
-  /* Дата и время создания. */
+  /* Creation date and time. */
   createdAt: string;
-  /* Количество просмотров. */
+  /* Number of views. */
   views: number;
-  /* Количество лайков. */
+  /* Number of likes. */
   likes: number;
-  /* Ссылка на изображение. */
+  /* Image URL. */
   imageUrl?: string;
 };
 
+// Export as both type and value
 export const OrderStatus = {
   Created: 0,
   Paid: 1,
@@ -27,21 +28,24 @@ export const OrderStatus = {
   Refund: 6,
 } as const;
 
+// Type for OrderStatus values
+export type OrderStatusValue = (typeof OrderStatus)[keyof typeof OrderStatus];
+
 export type OrderItem = Advertisement & { count: number };
 
 export type Order = {
-  /* Уникальный идентификатор. */
+  /* Unique identifier. */
   id: string;
-  /* Статус. */
-  status: (typeof OrderStatus)[keyof typeof OrderStatus];
-  /* Дата и время создания. */
+  /* Status. */
+  status: OrderStatusValue;
+  /* Creation date and time. */
   createdAt: string;
-  /* Дата и время завершения. */
+  /* Completion date and time. */
   finishedAt?: string;
-  /* Товары в заказе. */
+  /* Items in the order. */
   items: Array<OrderItem>;
-  /* Способ доставки(Почта, СДЭК...) */
+  /* Delivery method (Post, CDEK...) */
   deliveryWay: string;
-  /* Сумма заказа */
+  /* Order total amount */
   total: number;
 };
